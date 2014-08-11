@@ -12,7 +12,7 @@
 
 #define kTempAudioFilePath @"TempAudio.m4a"
 
-@interface CameraViewController : UIViewController<AVAudioPlayerDelegate,AVAudioRecorderDelegate,EZAudioMicrophone>{
+@interface CameraViewController : UIViewController<AVAudioPlayerDelegate,AVAudioRecorderDelegate,EZMicrophoneDelegate>{
     BOOL FrontCamera;
     BOOL haveImage;
 }
@@ -21,11 +21,15 @@
 
 @property (weak, nonatomic) IBOutlet UIView *imagePreview;
 @property (weak, nonatomic) IBOutlet UIImageView *captureImage;
+@property (weak, nonatomic) IBOutlet UIView *soundWaveView;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 @property (weak, nonatomic) IBOutlet UIButton *buttonPlay;
 @property (weak, nonatomic) IBOutlet UIButton *buttonTake;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRetake;
+
+@property (nonatomic,strong) EZAudioPlot *audioPlot;
+@property (nonatomic,strong) EZMicrophone *microphone;
 
 - (IBAction)snapImage:(UIButton *)sender;
 - (IBAction)snapImageEnd:(UIButton *)sender;

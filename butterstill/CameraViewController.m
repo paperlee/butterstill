@@ -21,6 +21,35 @@
 
 @synthesize stillImageOutput, imagePreview, captureImage;
 
+#pragma mark - Initialization
+-(id)init {
+    self = [super init];
+    if(self){
+        [self initializeViewController];
+    }
+    
+    //pthread_mutex_init(&outputAudioFileLock, NULL);
+    
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if(self){
+        [self initializeViewController];
+    }
+    return self;
+}
+
+#pragma mark - Initialize View Controller Here
+-(void)initializeViewController {
+    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
+    NSLog(@"init microphone");
+    self.microphone = [EZMicrophone microphoneWithDelegate:self];
+    
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -57,6 +86,20 @@
     audioRecorder.delegate = self;
     audioRecorder.meteringEnabled = YES;
     [audioRecorder prepareToRecord];
+    
+    // Set up audioPlot
+    self.audioPlot = [[EZAudioPlot alloc] initWithFrame:self.soundWaveView.frame];
+    [self.soundWaveView addSubview:self.audioPlot];
+    self.audioPlot.clipsToBounds = NO;
+    self.audioPlot.opaque = NO;
+    self.audioPlot.backgroundColor = [UIColor colorWithRed:0.816 green:0.249 blue:0.255 alpha:0];
+    self.audioPlot.color = [UIColor colorWithRed:0.9 green:0.12 blue:0.13 alpha:0.4];
+    self.audioPlot.plotType = EZPlotTypeRolling;
+    self.audioPlot.shouldFill = YES;
+    self.audioPlot.shouldMirror = YES;
+    self.audioPlot.hidden = YES;
+    self.audioPlot.gain = 3;
+    self.audioPlot.userInteractionEnabled = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -148,14 +191,43 @@
         if (imageSampleBuffer != NULL){
             NSData *imageDate = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
             [self processImage:[UIImage imageWithData:imageDate]];
+            
+            // Start recording
+            double delayInSeconds = 0.5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                if (!audioRecorder.recording){
+                    AVAudioSession *session = [AVAudioSession sharedInstance];
+                    NSError *error = nil;
+                    [session setActive:YES error:&error];
+                    if (error){
+                        NSLog(@"Fail to active session: %@",error);
+                    }
+                    
+                    //Start recording
+                    [audioRecorder record];
+                    
+                    
+                    //[self.audioPlot clear];
+                    
+                    [self.audioPlot setHidden:NO];
+                    
+                    [self.microphone startFetchingAudio];
+                }
+            });
+            
         }
     }];
+    
+    
 }
 
 - (void) processImage:(UIImage *)image{
     haveImage = YES;
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+    [captureImage setImage:image];
+    
+    /*if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         // iPad, resize image
         UIGraphicsBeginImageContext(CGSizeMake(768,1022));
         [image drawInRect:CGRectMake(0, 0, 768, 1022)];
@@ -182,7 +254,7 @@
         
         CGImageRelease(imageRef);
         
-    }
+    }*/
     
     // adjust image orientation
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft){
@@ -220,6 +292,8 @@
     }
 }
 
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -239,23 +313,14 @@
         [audioPlayer stop];
     }
     
-    if (!audioRecorder.recording){
-        AVAudioSession *session = [AVAudioSession sharedInstance];
-        NSError *error = nil;
-        [session setActive:YES error:&error];
-        if (error){
-            NSLog(@"Fail to active session: %@",error);
-        }
-        
-        //Start recording
-        [audioRecorder record];
-        
-    }
+    
 }
 
 - (IBAction)snapImageEnd:(UIButton *)sender {
     // End up recording
     [audioRecorder stop];
+    
+    [self.microphone stopFetchingAudio];
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     NSError *error = nil;
@@ -302,13 +367,31 @@
     
     // UI
     [self.buttonPlay setEnabled:NO];
+    [self.buttonPlay setSelected:NO];
     [self.buttonRetake setHidden:YES];
     [self.buttonSave setEnabled:NO];
     [self.buttonTake setHidden:NO];
     
     [imagePreview setHidden:NO];
     [captureImage setHidden:YES];
+    [self.audioPlot setHidden:YES];
     
+    if (self.audioPlot){
+        self.audioPlot = nil;
+    }
+    
+    self.audioPlot = [[EZAudioPlot alloc] initWithFrame:self.soundWaveView.frame];
+    [self.soundWaveView addSubview:self.audioPlot];
+    self.audioPlot.clipsToBounds = NO;
+    self.audioPlot.opaque = NO;
+    self.audioPlot.backgroundColor = [UIColor colorWithRed:0.816 green:0.249 blue:0.255 alpha:0];
+    self.audioPlot.color = [UIColor colorWithRed:0.9 green:0.12 blue:0.13 alpha:0.4];
+    self.audioPlot.plotType = EZPlotTypeRolling;
+    self.audioPlot.shouldFill = YES;
+    self.audioPlot.shouldMirror = YES;
+    self.audioPlot.hidden = YES;
+    self.audioPlot.gain = 3;
+    self.audioPlot.userInteractionEnabled = NO;
     
 }
 
@@ -326,6 +409,13 @@
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     NSLog(@"Finished playing...");
     [self.buttonPlay setSelected:NO];
+}
+
+#pragma mark EZMicrophoneDelegate
+- (void) microphone:(EZMicrophone *)microphone hasAudioReceived:(float **)buffer withBufferSize:(UInt32)bufferSize withNumberOfChannels:(UInt32)numberOfChannels{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+    });
 }
 
 @end

@@ -16,18 +16,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGi-sM-fqs" userLabel="View - preview image">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGi-sM-fqs" userLabel="View - preview image">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A5a-Mm-fqV" userLabel="Image View - capture image">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A5a-Mm-fqV" userLabel="Image View - capture image">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1w-fQ-G7N">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afD-Rb-jfP" userLabel="View - sounds wave view">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1w-fQ-G7N">
                                 <rect key="frame" x="99" y="511" width="121" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="cV5-4c-NxL"/>
+                                    <constraint firstAttribute="width" constant="121" id="sCb-lA-bwY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Tap and Hold">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,9 +48,13 @@
                                     <action selector="snapImageEnd:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Hu8-SY-Ry3"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-7e-NWk">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-7e-NWk">
                                 <rect key="frame" x="99" y="511" width="121" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="121" id="6pZ-nf-GgW"/>
+                                    <constraint firstAttribute="height" constant="44" id="imo-Iv-STX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Retake">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,9 +63,13 @@
                                     <action selector="retakeAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="R8r-wv-UKB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWr-Dc-Ggu">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWr-Dc-Ggu">
                                 <rect key="frame" x="25" y="511" width="46" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="8wg-KV-yvk"/>
+                                    <constraint firstAttribute="width" constant="46" id="XDP-C0-2z0"/>
+                                </constraints>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -61,9 +78,13 @@
                                     <action selector="playAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ngs-Lj-VLB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svM-we-fjw">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svM-we-fjw">
                                 <rect key="frame" x="250" y="511" width="46" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="vcc-AM-oBY"/>
+                                    <constraint firstAttribute="height" constant="44" id="yel-QY-Mxp"/>
+                                </constraints>
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -73,7 +94,30 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="H1w-fQ-G7N" firstAttribute="centerY" secondItem="svM-we-fjw" secondAttribute="centerY" id="4hm-XG-2Vv"/>
+                            <constraint firstItem="OGi-sM-fqs" firstAttribute="height" secondItem="A5a-Mm-fqV" secondAttribute="height" id="8Ge-Mn-Nyr"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OGi-sM-fqs" secondAttribute="bottom" id="990-Kc-27y"/>
+                            <constraint firstItem="OGi-sM-fqs" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="CPd-m1-DPx"/>
+                            <constraint firstAttribute="trailing" secondItem="OGi-sM-fqs" secondAttribute="trailing" id="Eqk-yI-XY6"/>
+                            <constraint firstItem="pWr-Dc-Ggu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="25" id="Eua-by-On2"/>
+                            <constraint firstAttribute="centerX" secondItem="H1w-fQ-G7N" secondAttribute="centerX" constant="0.5" id="Ha9-bf-V8g"/>
+                            <constraint firstItem="OGi-sM-fqs" firstAttribute="centerY" secondItem="A5a-Mm-fqV" secondAttribute="centerY" id="TVB-FS-pkv"/>
+                            <constraint firstItem="afD-Rb-jfP" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="UIo-E5-x93"/>
+                            <constraint firstItem="OGi-sM-fqs" firstAttribute="centerX" secondItem="A5a-Mm-fqV" secondAttribute="centerX" id="Vme-hs-EXT"/>
+                            <constraint firstItem="pWr-Dc-Ggu" firstAttribute="centerY" secondItem="Bo7-7e-NWk" secondAttribute="centerY" id="ajC-Vj-W6Z"/>
+                            <constraint firstItem="OGi-sM-fqs" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="btD-bo-xAL"/>
+                            <constraint firstItem="OGi-sM-fqs" firstAttribute="width" secondItem="A5a-Mm-fqV" secondAttribute="width" id="doP-HB-0d6"/>
+                            <constraint firstItem="afD-Rb-jfP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fXa-93-hHb"/>
+                            <constraint firstAttribute="centerX" secondItem="Bo7-7e-NWk" secondAttribute="centerX" constant="0.5" id="jXV-Fu-AAB"/>
+                            <constraint firstItem="H1w-fQ-G7N" firstAttribute="centerY" secondItem="Bo7-7e-NWk" secondAttribute="centerY" id="nTK-v7-k8G"/>
+                            <constraint firstAttribute="trailing" secondItem="afD-Rb-jfP" secondAttribute="trailing" id="p7p-kp-0P1"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="afD-Rb-jfP" secondAttribute="bottom" id="qoL-xi-Zfe"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="H1w-fQ-G7N" secondAttribute="bottom" constant="13" id="vJr-rG-9Xh"/>
+                            <constraint firstAttribute="trailing" secondItem="svM-we-fjw" secondAttribute="trailing" constant="24" id="xQZ-VO-ncs"/>
+                        </constraints>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="buttonPlay" destination="pWr-Dc-Ggu" id="OoK-rt-3NB"/>
                         <outlet property="buttonRetake" destination="Bo7-7e-NWk" id="olE-ci-avX"/>
@@ -81,13 +125,14 @@
                         <outlet property="buttonTake" destination="H1w-fQ-G7N" id="ply-Rx-Rjb"/>
                         <outlet property="captureImage" destination="A5a-Mm-fqV" id="DjN-ZC-wde"/>
                         <outlet property="imagePreview" destination="OGi-sM-fqs" id="yiV-6R-BIp"/>
+                        <outlet property="soundWaveView" destination="afD-Rb-jfP" id="tem-ky-SEQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.4784313738" green="0.80784314869999996" blue="0.8627451062" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="1" green="0.002828156662" blue="0.40279419189999999" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
