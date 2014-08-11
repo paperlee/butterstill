@@ -24,6 +24,7 @@
 #pragma mark - Initialization
 -(id)init {
     self = [super init];
+    
     if(self){
         [self initializeViewController];
     }
@@ -53,6 +54,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([DBManager getSharedInstance]){
+        NSLog(@"Create table successfully");
+    }
+    
 	// Do any additional setup after loading the view, typically from a nib.
     FrontCamera = NO;
     [captureImage setHidden:YES];

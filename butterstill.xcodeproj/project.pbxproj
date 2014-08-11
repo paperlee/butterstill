@@ -22,6 +22,8 @@
 		20A7D64019986246007BE12E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 20A7D63E19986246007BE12E /* InfoPlist.strings */; };
 		20A7D64219986246007BE12E /* butterstillTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A7D64119986246007BE12E /* butterstillTests.m */; };
 		20A7D64C19986529007BE12E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D64B19986529007BE12E /* AVFoundation.framework */; };
+		20A7D64E1998C5DB007BE12E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D64D1998C5DB007BE12E /* libsqlite3.dylib */; };
+		20A7D6511998C647007BE12E /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A7D6501998C647007BE12E /* DBManager.m */; };
 		BA9D1B92B65841F1AB980129 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1629F127CF0746E2BFB8BBB9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,9 @@
 		20A7D63F19986246007BE12E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		20A7D64119986246007BE12E /* butterstillTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = butterstillTests.m; sourceTree = "<group>"; };
 		20A7D64B19986529007BE12E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		20A7D64D1998C5DB007BE12E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		20A7D64F1998C647007BE12E /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		20A7D6501998C647007BE12E /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		C6E66DB01A324F1DAAD42600 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20A7D64E1998C5DB007BE12E /* libsqlite3.dylib in Frameworks */,
 				20A7D64C19986529007BE12E /* AVFoundation.framework in Frameworks */,
 				20A7D61919986245007BE12E /* CoreGraphics.framework in Frameworks */,
 				20A7D61B19986245007BE12E /* UIKit.framework in Frameworks */,
@@ -109,6 +115,7 @@
 		20A7D61519986245007BE12E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				20A7D64D1998C5DB007BE12E /* libsqlite3.dylib */,
 				20A7D64B19986529007BE12E /* AVFoundation.framework */,
 				20A7D61619986245007BE12E /* Foundation.framework */,
 				20A7D61819986245007BE12E /* CoreGraphics.framework */,
@@ -122,6 +129,8 @@
 		20A7D61C19986245007BE12E /* butterstill */ = {
 			isa = PBXGroup;
 			children = (
+				20A7D64F1998C647007BE12E /* DBManager.h */,
+				20A7D6501998C647007BE12E /* DBManager.m */,
 				20A7D62519986245007BE12E /* AppDelegate.h */,
 				20A7D62619986245007BE12E /* AppDelegate.m */,
 				20A7D62819986245007BE12E /* Main.storyboard */,
@@ -300,6 +309,7 @@
 				20A7D62D19986245007BE12E /* CameraViewController.m in Sources */,
 				20A7D62719986245007BE12E /* AppDelegate.m in Sources */,
 				20A7D62319986245007BE12E /* main.m in Sources */,
+				20A7D6511998C647007BE12E /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

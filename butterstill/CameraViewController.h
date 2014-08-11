@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "EZAudio.h"
+#import "DBManager.h"
 
 #define kTempAudioFilePath @"TempAudio.m4a"
 
