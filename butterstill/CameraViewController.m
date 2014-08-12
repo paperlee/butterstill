@@ -396,6 +396,8 @@
     [stillProfile setObject:@"no" forKey:@"remote"];
     [stillProfile setObject:[NSNumber numberWithInt:1] forKey:@"enable"];
     
+    NSLog(@"Will save %@",stillProfile);
+    
     BOOL saveDBSuccess = [[DBManager getSharedInstance] saveData:stillProfile];
     if (!saveDBSuccess){
         NSLog(@"Failed to save in db");

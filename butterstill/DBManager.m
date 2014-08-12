@@ -51,6 +51,7 @@ static sqlite3_stmt *statement = nil;
             // enable: int
             
             const char *sql_stmt = "CREATE TABLE IF NOT EXISTS stillsprofile (id INTEGER PRIMARY KEY, uid INTEGER, author TEXT, description TEXT, image TEXT, audio TEXT, create_date INTEGER, update_date INTEGER, sync_date INTEGER, liked INTEGER, disliked INTEGER, remote TEXT, enable INTEGER)";
+            
             if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK){
                 isSuccess = NO;
                 NSLog(@"Fail to create table");
@@ -83,13 +84,17 @@ static sqlite3_stmt *statement = nil;
     const char *dpath = [databasePath UTF8String];
     if (sqlite3_open(dpath, &database) == SQLITE_OK){
         NSLog(@"level1");
-        NSString *query = [NSString stringWithFormat:@"INSERT INTO stillsprofile (uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable) VALUES (\"%d\",\"%@\",\"%@\",\"%@\",\"%@\",\"%d\",\"%d\",\"%d\",\"%d\",\"%d\",\"%@\",\"%d\")",uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable];
+        NSString *query = [NSString stringWithFormat:@"INSERT INTO stillsprofile (uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable) VALUES (%d,\"%@\",\"%@\",\"%@\",\"%@\",%d,%d,%d,%d,%d,\"%@\",%d)",uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable];
+        
+        NSLog(@"%@",query);
+        
         const char *query_stmt = [query UTF8String];
+        NSLog(@"%s",query_stmt);
         sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"level2");
             return YES;
-        } else {
+        } else { 
             NSLog(@"level3");
             return NO;
         }
