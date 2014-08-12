@@ -22,6 +22,7 @@
     int _disliked;
     NSString *_remote;
     int _enable;
+    float _row_height;
     
 }
 
@@ -38,6 +39,7 @@
 @property (nonatomic,assign) int disliked;
 @property (nonatomic,copy) NSString *remote;
 @property (nonatomic,assign) int enable;
+@property (nonatomic,assign) float row_height;
 
 - (id)initWithStillProfile:(NSMutableDictionary *)stillProfile;
 

@@ -72,12 +72,27 @@
     
     StillProfile *stillProfile = [self.stillsData objectAtIndex:indexPath.row];
     UIImageView *stillImageView = (UIImageView *)[cell viewWithTag:100];
-    stillImageView.image = [UIImage imageWithContentsOfFile:stillProfile.image];
+    NSString *imagePath = [self documentsPathForFileName:stillProfile.image];
+    stillImageView.image = [UIImage imageWithContentsOfFile:imagePath];
+    float shall_height = floorf(stillImageView.frame.size.width*(stillImageView.image.size.height/stillImageView.image.size.width));
+    stillImageView.frame = CGRectMake(stillImageView.frame.origin.x, stillImageView.frame.origin.y, stillImageView.frame.size.width, shall_height);
+    
+    
+    //[stillProfile setValue:[NSNumber numberWithFloat:shall_height] forKey:@"rowHeight"];
+    
+    //NSLog(@"image height is %f",stillImageView.image.size.height);
+    //NSLog(@"image in device height is %f",stillImageView.frame.size.height);
+    //NSLog(@"row height is %f",cell.frame.size.height);
     // Configure the cell...
     
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    float rowHeight = [[[self.stillsData objectAtIndex:indexPath.row] valueForKey:@"row_height"] floatValue];
+    NSLog(@"row height: %f",rowHeight);
+    return rowHeight;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -127,5 +142,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Utility
+- (NSString *)documentsPathForFileName:(NSString *)name{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    return [documentsPath stringByAppendingPathComponent:name];
+}
 
 @end

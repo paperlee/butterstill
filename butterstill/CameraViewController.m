@@ -382,6 +382,9 @@
         NSLog(@"Saved audio file.");
     }
     
+    //TODO: smarter cal. row height
+    float row_height = 320*captureImage.image.size.height/captureImage.image.size.width;
+    
     NSMutableDictionary *stillProfile = [[NSMutableDictionary alloc] init];
     [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"uid"];
     [stillProfile setObject:@"paper" forKey:@"author"];
@@ -395,6 +398,7 @@
     [stillProfile setObject:[NSNumber numberWithInt:0] forKey:@"disliked"];
     [stillProfile setObject:@"no" forKey:@"remote"];
     [stillProfile setObject:[NSNumber numberWithInt:1] forKey:@"enable"];
+    [stillProfile setObject:[NSNumber numberWithFloat:row_height] forKey:@"row_height"];
     
     NSLog(@"Will save %@",stillProfile);
     

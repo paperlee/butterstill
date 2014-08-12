@@ -49,8 +49,9 @@ static sqlite3_stmt *statement = nil;
             // disliked: int
             // remote: string
             // enable: int
+            // row_height: float
             
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS stillsprofile (id INTEGER PRIMARY KEY, uid INTEGER, author TEXT, description TEXT, image TEXT, audio TEXT, create_date INTEGER, update_date INTEGER, sync_date INTEGER, liked INTEGER, disliked INTEGER, remote TEXT, enable INTEGER)";
+            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS stillsprofile (id INTEGER PRIMARY KEY, uid INTEGER, author TEXT, description TEXT, image TEXT, audio TEXT, create_date INTEGER, update_date INTEGER, sync_date INTEGER, liked INTEGER, disliked INTEGER, remote TEXT, enable INTEGER, row_height REAL)";
             
             if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK){
                 isSuccess = NO;
@@ -80,22 +81,23 @@ static sqlite3_stmt *statement = nil;
     int disliked = [[data objectForKey:@"disliked"] intValue];
     NSString *remote = [data objectForKey:@"remote"];
     int enable = [[data objectForKey:@"enable"] intValue];
+    float row_height = [[data objectForKey:@"row_height"] floatValue];
     
     const char *dpath = [databasePath UTF8String];
     if (sqlite3_open(dpath, &database) == SQLITE_OK){
-        NSLog(@"level1");
-        NSString *query = [NSString stringWithFormat:@"INSERT INTO stillsprofile (uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable) VALUES (%d,\"%@\",\"%@\",\"%@\",\"%@\",%d,%d,%d,%d,%d,\"%@\",%d)",uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable];
+        //NSLog(@"level1");
+        NSString *query = [NSString stringWithFormat:@"INSERT INTO stillsprofile (uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable,row_height) VALUES (%d,\"%@\",\"%@\",\"%@\",\"%@\",%d,%d,%d,%d,%d,\"%@\",%d,%f)",uid,author,description,image,audio,create_date,update_date,sync_date,liked,disliked,remote,enable,row_height];
         
-        NSLog(@"%@",query);
+        //NSLog(@"%@",query);
         
         const char *query_stmt = [query UTF8String];
-        NSLog(@"%s",query_stmt);
+        //NSLog(@"%s",query_stmt);
         sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE){
-            NSLog(@"level2");
+            //NSLog(@"level2");
             return YES;
         } else { 
-            NSLog(@"level3");
+            //NSLog(@"level3");
             return NO;
         }
         sqlite3_reset(statement);
@@ -107,10 +109,10 @@ static sqlite3_stmt *statement = nil;
 -(NSArray*) getDatas{
     const char *dpath = [databasePath UTF8String];
     if (sqlite3_open(dpath, &database) == SQLITE_OK){
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM stillsprofile WHERE enable=\"1\""];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM stillsprofile WHERE enable=1"];
         const char *query_stmt = [query UTF8String];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
-        if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, nil)){
+        if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, nil) == SQLITE_OK){
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
                 [data setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 0)] forKey:@"id"];
@@ -126,7 +128,7 @@ static sqlite3_stmt *statement = nil;
                 [data setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 10)] forKey:@"disliked"];
                 [data setObject:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 11)] forKey:@"remote"];
                 [data setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 12)] forKey:@"enable"];
-                
+                [data setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 13)] forKey:@"row_height"];
                 StillProfile *temp = [[StillProfile alloc] initWithStillProfile:data];
                 [resultArray addObject:temp];
                 
@@ -134,8 +136,10 @@ static sqlite3_stmt *statement = nil;
             sqlite3_reset(statement);
             
         }
+        NSLog(@"%@",resultArray);
         return resultArray;
     }
+    NSLog(@"Get all datas wrong!");
     return nil;
 }
 

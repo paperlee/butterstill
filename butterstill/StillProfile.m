@@ -23,6 +23,7 @@
 @synthesize disliked = _disliked;
 @synthesize remote = _remote;
 @synthesize enable = _enable;
+@synthesize row_height = _row_height;
 
 - (id)initWithStillProfile:(NSMutableDictionary *)stillProfileData{
     if ((self = [super init])){
@@ -39,6 +40,7 @@
         self.disliked = [[stillProfileData objectForKey:@"disliked"] intValue];
         self.remote = [stillProfileData objectForKey:@"remote"];
         self.enable = [[stillProfileData objectForKey:@"enable"] intValue];
+        self.row_height = [[stillProfileData objectForKey:@"row_height"] floatValue];
         
     }
     return self;
