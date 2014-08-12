@@ -15,5 +15,7 @@
 
 +(DBManager*)getSharedInstance;
 -(BOOL)createDB;
+-(BOOL)saveData:(NSMutableDictionary *)data;
+-(NSArray *)getDatas;
 
 @end

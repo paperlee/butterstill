@@ -7,6 +7,7 @@
 //
 
 #import "CameraViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
@@ -55,9 +56,7 @@
 {
     [super viewDidLoad];
     
-    if ([DBManager getSharedInstance]){
-        NSLog(@"Create table successfully");
-    }
+    
     
 	// Do any additional setup after loading the view, typically from a nib.
     FrontCamera = NO;
@@ -363,6 +362,48 @@
 }
 
 - (IBAction)saveAction:(UIButton *)sender {
+    NSLog(@"Saving...");
+    NSString *unique_name = [NSString stringWithFormat:@"%.0f",[NSDate timeIntervalSinceReferenceDate]*1000];
+    
+    // Save image to app document
+    NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"%@.jpg",unique_name]];
+    NSData *jpgData = UIImageJPEGRepresentation(self.captureImage.image, 0.0);
+    [jpgData writeToFile:imagePath atomically:YES];
+    NSLog(@"Saved image file");
+    
+    // Save audio to app document
+    NSURL *audioPathURL = [self audioFilePathURL];
+    NSString *storedAudioPath = [self documentsPathForFileName:[NSString stringWithFormat:@"%@.m4a",unique_name]];
+    NSError *error = nil;
+    BOOL storeAudioSuccess = [[NSFileManager defaultManager] copyItemAtPath:audioPathURL.path toPath:storedAudioPath error:&error];
+    if (!storeAudioSuccess) {
+        NSLog(@"Failed to save audio file: %@",error);
+    } else {
+        NSLog(@"Saved audio file.");
+    }
+    
+    NSMutableDictionary *stillProfile = [[NSMutableDictionary alloc] init];
+    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"uid"];
+    [stillProfile setObject:@"paper" forKey:@"author"];
+    [stillProfile setObject:@"nothing..." forKey:@"description"];
+    [stillProfile setObject:[NSString stringWithFormat:@"%@.jpg",unique_name] forKey:@"image"];
+    [stillProfile setObject:[NSString stringWithFormat:@"%@.m4a",unique_name] forKey:@"audio"];
+    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"create_date"];
+    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"update_date"];
+    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"sync_date"];
+    [stillProfile setObject:[NSNumber numberWithInt:0] forKey:@"liked"];
+    [stillProfile setObject:[NSNumber numberWithInt:0] forKey:@"disliked"];
+    [stillProfile setObject:@"no" forKey:@"remote"];
+    [stillProfile setObject:[NSNumber numberWithInt:1] forKey:@"enable"];
+    
+    BOOL saveDBSuccess = [[DBManager getSharedInstance] saveData:stillProfile];
+    if (!saveDBSuccess){
+        NSLog(@"Failed to save in db");
+    } else {
+        NSLog(@"Success to go db");
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)retakeAction:(UIButton *)sender {
@@ -422,6 +463,25 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
     });
+}
+
+- (IBAction)buttonClose:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+#pragma mark - Utility
+- (NSString *)documentsPathForFileName:(NSString *)name{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    return [documentsPath stringByAppendingPathComponent:name];
+}
+
+- (NSURL *)audioFilePathURL{
+    NSArray *pathComponents = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], kTempAudioFilePath, nil];
+    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    return outputFileURL;
 }
 
 @end

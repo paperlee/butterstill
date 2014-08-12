@@ -7,12 +7,19 @@
 //
 
 #import "AppDelegate.h"
+#import "DBManager.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    if ([DBManager getSharedInstance]){
+        NSLog(@"Initial table successfully");
+    }
+    
+    //NSLog(@"timeinterval is %.0f",[NSDate timeIntervalSinceReferenceDate]*1000);
+    
     return YES;
 }
 							

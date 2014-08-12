@@ -38,6 +38,7 @@
 - (IBAction)playAction:(UIButton *)sender;
 - (IBAction)saveAction:(UIButton *)sender;
 - (IBAction)retakeAction:(UIButton *)sender;
+- (IBAction)buttonClose:(UIButton *)sender;
 
 
 @end
