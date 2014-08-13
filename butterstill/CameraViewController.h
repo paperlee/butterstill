@@ -32,6 +32,8 @@
 @property (nonatomic,strong) EZAudioPlot *audioPlot;
 @property (nonatomic,strong) EZMicrophone *microphone;
 
+@property (nonatomic,assign) BOOL isRecording;
+
 - (IBAction)snapImage:(UIButton *)sender;
 - (IBAction)snapImageEnd:(UIButton *)sender;
 

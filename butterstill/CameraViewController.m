@@ -56,7 +56,7 @@
 {
     [super viewDidLoad];
     
-    
+    self.isRecording = NO;
     
 	// Do any additional setup after loading the view, typically from a nib.
     FrontCamera = NO;
@@ -200,8 +200,10 @@
             // Start recording
             double delayInSeconds = 0.5;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            self.isRecording = YES;
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                if (!audioRecorder.recording){
+                if (!audioRecorder.isRecording && self.isRecording){
+                    NSLog(@"Init recorder: %hhd :: %hhd",audioRecorder.isRecording,self.isRecording);
                     AVAudioSession *session = [AVAudioSession sharedInstance];
                     NSError *error = nil;
                     [session setActive:YES error:&error];
@@ -321,11 +323,28 @@
     
 }
 
+// TOFIX: Use gesture recognizer instead of touch up/down
+
 - (IBAction)snapImageEnd:(UIButton *)sender {
+    NSLog(@"Snap image end");
     // End up recording
-    [audioRecorder stop];
+    if (audioRecorder.recording){
+        [audioRecorder stop];
+        [self.microphone stopFetchingAudio];
+        
+    } else{
+        if (self.isRecording){
+            // still in delay recording process...
+            double delayInSeconds = 0.5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [audioRecorder stop];
+                [self.microphone stopFetchingAudio];
+            });
+        }
+    }
     
-    [self.microphone stopFetchingAudio];
+    self.isRecording = NO;
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     NSError *error = nil;
@@ -385,6 +404,7 @@
     //TODO: smarter cal. row height
     float row_height = 320*captureImage.image.size.height/captureImage.image.size.width;
     
+    //TOFIX: Wrong name between uid and image/audio file name
     NSMutableDictionary *stillProfile = [[NSMutableDictionary alloc] init];
     [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"uid"];
     [stillProfile setObject:@"paper" forKey:@"author"];
@@ -451,6 +471,9 @@
 #pragma mark AVAudioRecorderDelegate
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
+    
+    NSLog(@"Recording end");
+    
     // Prepare UI after finishing recording
     [self.buttonPlay setEnabled:YES];
     [self.buttonSave setEnabled:YES];

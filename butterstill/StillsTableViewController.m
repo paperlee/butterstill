@@ -125,9 +125,9 @@
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
-    NSLog(@"index path is %@",indexPath);
+    //NSLog(@"index path is %@",indexPath);
     if (indexPath != nil){
-        NSLog(@"YES I AM IN");
+       // NSLog(@"YES I AM IN");
         // Play sound
         if ([audioPlayer isPlaying]){
             [audioPlayer stop];
@@ -137,7 +137,7 @@
             
             NSError *error = nil;
             NSString *audioFileName = [[self.stillsData objectAtIndex:[indexPath row]] valueForKey:@"audio"];
-            NSLog(@"GOGOGO: %@",audioFileName);
+            //NSLog(@"GOGOGO: %@",audioFileName);
             NSURL *audioFilePathURL = [self documentsPathURLForFileName:audioFileName];
             audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFilePathURL error:&error];
             [audioPlayer setDelegate:self];
