@@ -135,7 +135,9 @@
 }
 
 - (void)playButtonAction:(UIButton *)sender{
+    
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
     //NSLog(@"begin assign: %@",self.currentPlayIndexPath);
@@ -260,6 +262,9 @@
 
 #pragma mark - UIScrollViewDelegate
 -(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    // Cancel all queue
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoPlayCenterPost) object:nil];
+    
     startContentOffset = lastContentOffset = scrollView.contentOffset.y;
 }
 
@@ -282,7 +287,10 @@
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
+    /*CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];*/
+    [self performSelector:@selector(autoPlayCenterPost) withObject:nil afterDelay:3];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -292,6 +300,27 @@
 -(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
     [self contract];
     return YES;
+}
+
+-(void)autoPlayCenterPost{
+    CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
+    CGPoint centerInTable = [self.view convertPoint:center fromView:self.tableView.superview];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:centerInTable];
+    NSLog(@"Center index path is %@",indexPath);
+    if (audioPlayer.isPlaying){
+        [audioPlayer stop];
+    }
+    NSError *error = nil;
+    NSString *audioFileName = [[self.stillsData objectAtIndex:[indexPath row]] valueForKey:@"audio"];
+    //NSLog(@"GOGOGO: %@",audioFileName);
+    NSURL *audioFilePathURL = [self documentsPathURLForFileName:audioFileName];
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFilePathURL error:&error];
+    if (error){
+        NSLog(@"Error play audio: %@",error);
+    }
+    [audioPlayer setDelegate:self];
+    [audioPlayer play];
 }
 
 #pragma mark - Utility
