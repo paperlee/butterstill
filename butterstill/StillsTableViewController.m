@@ -19,12 +19,18 @@
 @end
 
 @implementation StillsTableViewController
+{
+    CGFloat startContentOffset;
+    CGFloat lastContentOffset;
+    BOOL hidden;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        hidden = NO;
     }
     return self;
 }
@@ -53,8 +59,15 @@
         // Refresh the table
         [self refreshTable];
     }
+    [self.navigationController setNavigationBarHidden:hidden animated:YES];
+    [self.navigationController setToolbarHidden:hidden animated:YES];
     
 }
+
+/*-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+}*/
 
 - (void)didReceiveMemoryWarning
 {
@@ -223,6 +236,63 @@
     }
     
 }*/
+
+#pragma mark - expand and schrink
+-(void)expand{
+    if (hidden){
+        return;
+    }
+    hidden = YES;
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setToolbarHidden:YES animated:YES];
+}
+
+-(void)contract{
+    if (!hidden){
+        return;
+    }
+    hidden = NO;
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setToolbarHidden:NO animated:YES];
+}
+
+#pragma mark - UIScrollViewDelegate
+-(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    startContentOffset = lastContentOffset = scrollView.contentOffset.y;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat currentOffset = scrollView.contentOffset.y;
+    CGFloat differenceFromStart = startContentOffset - currentOffset;
+    CGFloat differenceFromLast = lastContentOffset - currentOffset;
+    lastContentOffset = currentOffset;
+    
+    if (differenceFromStart < 0){
+        //scroll up
+        if (scrollView.isTracking && (abs(differenceFromLast)>1)){
+            [self expand];
+        }
+    } else {
+        if (scrollView.isTracking && (abs(differenceFromLast)>1)){
+            [self contract];
+        }
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+}
+
+-(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+    [self contract];
+    return YES;
+}
 
 #pragma mark - Utility
 - (NSString *)documentsPathForFileName:(NSString *)name{
