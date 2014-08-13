@@ -204,11 +204,13 @@
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     NSLog(@"Finished playing...");
     
+    
+    NSLog(@"current play index path: %@",self.currentPlayIndexPath);
     if (self.currentPlayIndexPath){
         NSLog(@"current play index path: %@",self.currentPlayIndexPath);
         UITableViewCell *currentPlayingCell = [self.tableView cellForRowAtIndexPath:self.currentPlayIndexPath];
         UIButton *buttonPlay = (UIButton *)[currentPlayingCell viewWithTag:101];
-        [buttonPlay setEnabled:NO];
+        [buttonPlay setSelected:NO];
     }
     
 }
