@@ -125,6 +125,8 @@
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
+    self.currentPlayIndexPath = (NSIndexPath *) indexPath;
+    
     //NSLog(@"index path is %@",indexPath);
     if (indexPath != nil){
        // NSLog(@"YES I AM IN");
@@ -197,6 +199,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark AVAudioPlayerDelegate
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    NSLog(@"Finished playing...");
+    
+    if (self.currentPlayIndexPath){
+        NSLog(@"current play index path: %@",self.currentPlayIndexPath);
+        UITableViewCell *currentPlayingCell = [self.tableView cellForRowAtIndexPath:self.currentPlayIndexPath];
+        UIButton *buttonPlay = (UIButton *)[currentPlayingCell viewWithTag:101];
+        [buttonPlay setEnabled:NO];
+    }
+    
+}
 
 #pragma mark - Utility
 - (NSString *)documentsPathForFileName:(NSString *)name{
