@@ -12,6 +12,6 @@
 @interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate>
 
 @property (nonatomic,strong) NSArray *stillsData;
-@property (nonatomic,weak) NSIndexPath *currentPlayIndexPath;
+//@property (nonatomic,weak) NSIndexPath *currentPlayIndexPath;
 
 @end

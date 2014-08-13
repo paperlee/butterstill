@@ -125,7 +125,9 @@
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
-    self.currentPlayIndexPath = (NSIndexPath *) indexPath;
+    //NSLog(@"begin assign: %@",self.currentPlayIndexPath);
+    //self.currentPlayIndexPath = (NSIndexPath *) indexPath;
+    //NSLog(@"end assign: %@",self.currentPlayIndexPath);
     
     //NSLog(@"index path is %@",indexPath);
     if (indexPath != nil){
@@ -147,6 +149,13 @@
             
             // Set up UI
             [sender setSelected:YES];
+            
+            // TODO: Smarter way to change button status?
+            double audioDuration = audioPlayer.duration;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, audioDuration * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [sender setSelected:NO];
+            });
         }
     }
 }
@@ -201,7 +210,7 @@
 */
 
 #pragma mark AVAudioPlayerDelegate
-- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+/*- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     NSLog(@"Finished playing...");
     
     
@@ -213,7 +222,7 @@
         [buttonPlay setSelected:NO];
     }
     
-}
+}*/
 
 #pragma mark - Utility
 - (NSString *)documentsPathForFileName:(NSString *)name{
