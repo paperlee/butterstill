@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		204577E0199B0D78005B7A44 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 204577D8199B0D78005B7A44 /* logo.png */; };
+		204577E1199B0D78005B7A44 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 204577D9199B0D78005B7A44 /* logo@2x.png */; };
 		20A7D61719986245007BE12E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D61619986245007BE12E /* Foundation.framework */; };
 		20A7D61919986245007BE12E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D61819986245007BE12E /* CoreGraphics.framework */; };
 		20A7D61B19986245007BE12E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D61A19986245007BE12E /* UIKit.framework */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		1629F127CF0746E2BFB8BBB9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		204577D8199B0D78005B7A44 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		204577D9199B0D78005B7A44 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		20A7D61319986245007BE12E /* butterstill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = butterstill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A7D61619986245007BE12E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		20A7D61819986245007BE12E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		204577D1199B0D78005B7A44 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				204577D8199B0D78005B7A44 /* logo.png */,
+				204577D9199B0D78005B7A44 /* logo@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		20A7D60A19986245007BE12E = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +168,7 @@
 		20A7D61D19986245007BE12E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				204577D1199B0D78005B7A44 /* Images */,
 				20A7D61E19986245007BE12E /* butterstill-Info.plist */,
 				20A7D61F19986245007BE12E /* InfoPlist.strings */,
 				20A7D62219986245007BE12E /* main.m */,
@@ -262,7 +276,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				204577E1199B0D78005B7A44 /* logo@2x.png in Resources */,
 				20A7D62F19986245007BE12E /* Images.xcassets in Resources */,
+				204577E0199B0D78005B7A44 /* logo.png in Resources */,
 				20A7D62119986245007BE12E /* InfoPlist.strings in Resources */,
 				20A7D62A19986245007BE12E /* Main.storyboard in Resources */,
 			);

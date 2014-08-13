@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface StillsTableViewController : UITableViewController
+@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate>
 
 @property (nonatomic,strong) NSArray *stillsData;
 

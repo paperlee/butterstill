@@ -10,7 +10,11 @@
 #import "DBManager.h"
 #import "StillProfile.h"
 
-@interface StillsTableViewController ()
+@interface StillsTableViewController (){
+    AVAudioPlayer *audioPlayer;
+}
+
+@property (nonatomic,assign) BOOL isInit;
 
 @end
 
@@ -30,12 +34,26 @@
     [super viewDidLoad];
     
     self.stillsData = [[DBManager getSharedInstance] getDatas];
+    self.isInit = YES;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.isInit){
+        //NSLog(@"Cool! I am first time here");
+        self.isInit = NO;
+    } else {
+        //NSLog(@"View Will Appear!");
+        // Refresh the table
+        [self refreshTable];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,6 +95,9 @@
     float shall_height = floorf(stillImageView.frame.size.width*(stillImageView.image.size.height/stillImageView.image.size.width));
     stillImageView.frame = CGRectMake(stillImageView.frame.origin.x, stillImageView.frame.origin.y, stillImageView.frame.size.width, shall_height);
     
+    // Add action to play button
+    UIButton *playButton = (UIButton *)[cell viewWithTag:101];
+    [playButton addTarget:self action:@selector(playButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //[stillProfile setValue:[NSNumber numberWithFloat:shall_height] forKey:@"rowHeight"];
     
@@ -89,9 +110,43 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    // TODO: use ios7+ esstimated row height method
     float rowHeight = [[[self.stillsData objectAtIndex:indexPath.row] valueForKey:@"row_height"] floatValue];
     NSLog(@"row height: %f",rowHeight);
     return rowHeight;
+}
+
+- (void)refreshTable{
+    self.stillsData = [[DBManager getSharedInstance] getDatas];
+    [self.tableView reloadData];
+}
+
+- (void)playButtonAction:(UIButton *)sender{
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    NSLog(@"index path is %@",indexPath);
+    if (indexPath != nil){
+        NSLog(@"YES I AM IN");
+        // Play sound
+        if ([audioPlayer isPlaying]){
+            [audioPlayer stop];
+            
+            [sender setSelected:NO];
+        } else {
+            
+            NSError *error = nil;
+            NSString *audioFileName = [[self.stillsData objectAtIndex:[indexPath row]] valueForKey:@"audio"];
+            NSLog(@"GOGOGO: %@",audioFileName);
+            NSURL *audioFilePathURL = [self documentsPathURLForFileName:audioFileName];
+            audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFilePathURL error:&error];
+            [audioPlayer setDelegate:self];
+            [audioPlayer play];
+            
+            // Set up UI
+            [sender setSelected:YES];
+        }
+    }
 }
 
 /*
@@ -149,6 +204,12 @@
     NSString *documentsPath = [paths objectAtIndex:0];
     
     return [documentsPath stringByAppendingPathComponent:name];
+}
+
+- (NSURL *)documentsPathURLForFileName:(NSString *)name{
+    NSArray *pathComponents = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], name, nil];
+    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    return outputFileURL;
 }
 
 @end

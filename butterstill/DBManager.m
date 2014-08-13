@@ -109,7 +109,7 @@ static sqlite3_stmt *statement = nil;
 -(NSArray*) getDatas{
     const char *dpath = [databasePath UTF8String];
     if (sqlite3_open(dpath, &database) == SQLITE_OK){
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM stillsprofile WHERE enable=1"];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM stillsprofile WHERE enable=1 ORDER BY id DESC"];
         const char *query_stmt = [query UTF8String];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, nil) == SQLITE_OK){
