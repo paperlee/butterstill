@@ -35,6 +35,9 @@
     if (self) {
         // Custom initialization
         hidden = NO;
+        self.isAutoPlaying = NO;
+        self.currentCenterIndexPathRow = -1;
+        self.playingIndexPathRow = -1;
     }
     return self;
 }
@@ -157,7 +160,19 @@
             [audioPlayer stop];
             
             [sender setSelected:NO];
-            //self.playingIndexPathRow = [indexPath row];
+            
+            if (self.playingIndexPathRow != -1){
+                NSLog(@"Actively stop audio at %d",self.playingIndexPathRow);
+                NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
+                UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
+                UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];
+                [buttonPlay setSelected:NO];
+            }
+            
+            self.playingIndexPathRow = -1;
+            
+            
+            
         } else {
             
             if (audioPlayer.isPlaying){
@@ -176,13 +191,16 @@
             [sender setSelected:YES];
             
             // TODO: Smarter way to change button status?
-            double audioDuration = audioPlayer.duration;
+            /*double audioDuration = audioPlayer.duration;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, audioDuration * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_main_queue(), ^{
                 [sender setSelected:NO];
-            });
+            });*/
             
             self.isAutoPlaying = NO;
+            
+            self.playingIndexPathRow = [indexPath row];
+            
         }
     }
 }
@@ -244,6 +262,19 @@
     self.isAutoPlaying = NO;
     
     //NSLog(@"Shall stop at %d",self.currentCenterIndexPathRow);
+    if (self.playingIndexPathRow != -1){
+        
+        //NSUInteger unsignedIndex = (NSUInteger)self.playingIndexPathRow;
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
+        
+        NSLog(@"Closing %@",ip);
+        
+        UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
+        UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];
+        [buttonPlay setSelected:NO];
+    }
+    
+    
 }
 
 #pragma mark - EZAudioPlot
@@ -313,6 +344,8 @@
         }
     }
     
+    
+    // Determine shall stop audio or not
     CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
     CGPoint centerInTable = [self.view convertPoint:center fromView:self.tableView.superview];
     
@@ -322,6 +355,16 @@
         if (self.isAutoPlaying && audioPlayer.isPlaying){
             [audioPlayer stop];
             self.isAutoPlaying = NO;
+            
+            if (self.playingIndexPathRow != -1){
+                NSLog(@"Passively stop audio at %d",self.playingIndexPathRow);
+                NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
+                UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
+                UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];
+                [buttonPlay setSelected:NO];
+            }
+            
+            self.playingIndexPathRow = -1;
         }
     }
     
@@ -367,16 +410,17 @@
     self.isAutoPlaying = YES;
     [audioPlayer setDelegate:self];
     [audioPlayer play];
+    self.playingIndexPathRow = [indexPath row];
     
     // UI
     UITableViewCell *centerCell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIButton *buttonPlay = (UIButton *)[centerCell viewWithTag:101];
     [buttonPlay setSelected:YES];
-    double audioDuration = audioPlayer.duration;
+    /*double audioDuration = audioPlayer.duration;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, audioDuration * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^{
         [buttonPlay setSelected:NO];
-    });
+    });*/
     
 }
 
