@@ -101,12 +101,13 @@ static sqlite3_stmt *statement = nil;
             return NO;
         }
         sqlite3_reset(statement);
+        sqlite3_close(database);
     }
     
     return NO;
 }
 
--(NSArray*) getDatas{
+-(NSMutableArray*) getDatas{
     const char *dpath = [databasePath UTF8String];
     if (sqlite3_open(dpath, &database) == SQLITE_OK){
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM stillsprofile WHERE enable=1 ORDER BY id DESC"];
@@ -134,6 +135,7 @@ static sqlite3_stmt *statement = nil;
                 
             }
             sqlite3_reset(statement);
+            sqlite3_close(database);
             
         }
         NSLog(@"%@",resultArray);
@@ -161,6 +163,8 @@ static sqlite3_stmt *statement = nil;
             return NO;
         }
         sqlite3_reset(statement);
+        sqlite3_finalize(statement);
+        sqlite3_close(database);
     }
     
     return NO;

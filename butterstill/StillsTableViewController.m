@@ -95,6 +95,7 @@
 {
 
     // Return the number of rows in the section.
+    NSLog(@"There are %d rows.",[self.stillsData count]);
     return [self.stillsData count];
 }
 
@@ -223,15 +224,20 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        /*if (audioPlayer.isPlaying){
+        if (audioPlayer.isPlaying){
             [audioPlayer stop];
         }
         
         // Delete db and local data first
-        BOOL deleteSuccess = [[DBManager getSharedInstance] deleteData:[indexPath row]];
+        
+        NSMutableDictionary *deletingData = [self.stillsData objectAtIndex:[indexPath row]];
+        NSInteger row_id = [[deletingData valueForKey:@"row_id"] intValue];
+        
+        NSLog(@"Prepare to delete %d and db id is %d",[indexPath row],row_id);
+        BOOL deleteSuccess = [[DBManager getSharedInstance] deleteData:row_id];
         if (deleteSuccess){
             // Delete audio and image file
-            NSMutableDictionary *deletingData = [self.stillsData objectAtIndex:[indexPath row]];
+            
             NSString *audioFilePath = [self documentsPathForFileName:[deletingData valueForKey:@"audio"]];
             NSString *imageFilePath = [self documentsPathForFileName:[deletingData valueForKey:@"image"]];
             NSError *audioError = nil;
@@ -246,13 +252,15 @@
                 NSLog(@"Error to delete image file: %@",imageError);
             }
             
-            self.stillsData = [[DBManager getSharedInstance] getDatas];
+            //self.stillsData = [[DBManager getSharedInstance] getDatas];
+            
+            [self.stillsData removeObjectAtIndex:[indexPath row]];
             
             NSLog(@"Deleted from file and db");
             
             // Delete the row from the data source
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }*/
+        }
         
         
         
@@ -444,6 +452,10 @@
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:centerInTable];
     NSLog(@"Center index path is %@",indexPath);
+    
+    if (indexPath == nil){
+        return;
+    }
     
     self.currentCenterIndexPathRow = [indexPath row];
     

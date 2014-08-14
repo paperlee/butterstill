@@ -27,6 +27,7 @@
 
 - (id)initWithStillProfile:(NSMutableDictionary *)stillProfileData{
     if ((self = [super init])){
+        //NSLog(@"still progile data is %@",stillProfileData);
         self.row_id = [[stillProfileData objectForKey:@"id"] intValue];
         self.uid = [[stillProfileData objectForKey:@"uid"] intValue];
         self.author = [stillProfileData objectForKey:@"author"];
@@ -43,6 +44,7 @@
         self.row_height = [[stillProfileData objectForKey:@"row_height"] floatValue];
         
     }
+    //NSLog(@"returned is %d",self.row_id);
     return self;
 }
 

@@ -12,7 +12,7 @@
 
 @interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate, EZAudioFileDelegate>
 
-@property (nonatomic,strong) NSArray *stillsData;
+@property (nonatomic,strong) NSMutableArray *stillsData;
 //@property (nonatomic,weak) NSIndexPath *currentPlayIndexPath;
 @property (nonatomic,assign) BOOL isAutoPlaying;
 
