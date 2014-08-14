@@ -69,7 +69,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="fpX-lI-kFK"/>
                         <barButtonItem title="Still" width="280" id="z3b-Vf-ECn">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="modal" modalTransitionStyle="coverVertical" id="ver-2z-OtC"/>
+                                <segue destination="vXZ-lx-hvc" kind="modal" identifier="goStillSegue" modalTransitionStyle="coverVertical" id="ver-2z-OtC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="jk2-qt-clA"/>

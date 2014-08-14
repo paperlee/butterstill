@@ -243,7 +243,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -251,8 +251,26 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"goStillSegue"]){
+        NSLog(@"goStillSegue");
+        if (audioPlayer.isPlaying){
+            [audioPlayer stop];
+            
+            if (self.playingIndexPathRow != -1){
+                NSLog(@"Passively stop audio at %d",self.playingIndexPathRow);
+                NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
+                UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
+                UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];
+                [buttonPlay setSelected:NO];
+            }
+            
+            self.playingIndexPathRow = -1;
+            self.isAutoPlaying = NO;
+        }
+        
+    }
 }
-*/
+
 
 #pragma mark AVAudioPlayerDelegate
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
