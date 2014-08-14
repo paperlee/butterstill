@@ -49,6 +49,7 @@
     self.stillsData = [[DBManager getSharedInstance] getDatas];
     self.isInit = YES;
     
+    //[self.tableView setEditing:YES];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -115,9 +116,13 @@
     float shall_height = floorf(stillImageView.frame.size.width*(stillImageView.image.size.height/stillImageView.image.size.width));
     stillImageView.frame = CGRectMake(stillImageView.frame.origin.x, stillImageView.frame.origin.y, stillImageView.frame.size.width, shall_height);
     
+    //[[self.stillsData objectAtIndex:[indexPath row]] setObject:[NSNumber numberWithFloat:shall_height] forKey:@"row_height"];
+    
     // Add action to play button
     UIButton *playButton = (UIButton *)[cell viewWithTag:101];
     [playButton addTarget:self action:@selector(playButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    NSLog(@"Done assign cell");
     
     //[stillProfile setValue:[NSNumber numberWithFloat:shall_height] forKey:@"rowHeight"];
     
@@ -205,27 +210,56 @@
     }
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        /*if (audioPlayer.isPlaying){
+            [audioPlayer stop];
+        }
+        
+        // Delete db and local data first
+        BOOL deleteSuccess = [[DBManager getSharedInstance] deleteData:[indexPath row]];
+        if (deleteSuccess){
+            // Delete audio and image file
+            NSMutableDictionary *deletingData = [self.stillsData objectAtIndex:[indexPath row]];
+            NSString *audioFilePath = [self documentsPathForFileName:[deletingData valueForKey:@"audio"]];
+            NSString *imageFilePath = [self documentsPathForFileName:[deletingData valueForKey:@"image"]];
+            NSError *audioError = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:audioFilePath error:&audioError];
+            if (audioError){
+                NSLog(@"Error to delete audio file: %@",audioError);
+            }
+            
+            NSError *imageError = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:imageFilePath error:&imageError];
+            if (imageError){
+                NSLog(@"Error to delete image file: %@",imageError);
+            }
+            
+            self.stillsData = [[DBManager getSharedInstance] getDatas];
+            
+            NSLog(@"Deleted from file and db");
+            
+            // Delete the row from the data source
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }*/
+        
+        
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -395,7 +429,7 @@
     [self performSelector:@selector(autoPlayCenterPost) withObject:nil afterDelay:1];
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+-(void)scrollViewDidEndDecfelerating:(UIScrollView *)scrollView{
     
 }
 

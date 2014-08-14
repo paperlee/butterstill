@@ -33,6 +33,7 @@
 @property (nonatomic,strong) EZMicrophone *microphone;
 
 @property (nonatomic,assign) BOOL isRecording;
+@property (nonatomic,assign) NSInteger takenImageOrientation;
 
 - (IBAction)snapImage:(UIButton *)sender;
 - (IBAction)snapImageEnd:(UIButton *)sender;

@@ -263,6 +263,8 @@
         
     }*/
     
+    self.takenImageOrientation = [[UIDevice currentDevice] orientation];
+    
     // adjust image orientation
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft){
         NSLog(@"landscape left image");
@@ -386,7 +388,31 @@
     
     // Save image to app document
     NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"%@.jpg",unique_name]];
-    NSData *jpgData = UIImageJPEGRepresentation(self.captureImage.image, 0.0);
+    
+    NSInteger shallImageOrientation;
+    switch (self.takenImageOrientation) {
+        case UIImageOrientationRight:
+            NSLog(@"right");
+            shallImageOrientation = UIImageOrientationUp;
+            break;
+        case UIImageOrientationDown:
+            NSLog(@"down");
+            shallImageOrientation = UIImageOrientationRight;
+            break;
+        case UIImageOrientationLeft:
+            NSLog(@"left");
+            shallImageOrientation = UIImageOrientationLeft;
+            break;
+        default:
+            NSLog(@"up");
+            shallImageOrientation = UIImageOrientationDown;
+            break;
+    }
+    
+    UIImage *saveImage = [[UIImage alloc] initWithCGImage:self.captureImage.image.CGImage scale:1.0 orientation:shallImageOrientation];
+    //NSLog(@"Taken image orientation: %d",self.takenImageOrientation);
+    //UIImage *saveImage = [self fixRotationWithImage:self.captureImage.image];
+    NSData *jpgData = UIImageJPEGRepresentation(saveImage, 0.0);
     [jpgData writeToFile:imagePath atomically:YES];
     NSLog(@"Saved image file");
     
@@ -402,7 +428,11 @@
     }
     
     //TODO: smarter cal. row height
-    float row_height = 320*captureImage.image.size.height/captureImage.image.size.width;
+    float row_height = floorf(320*saveImage.size.height/saveImage.size.width);
+    NSLog(@"Saved image row height is %f",row_height);
+    /*if (self.takenImageOrientation == UIImageOrientationLeft || self.takenImageOrientation == UIImageOrientationRight){
+        row_height = 320*captureImage.image.size.width/captureImage.image.size.height;
+    }*/
     
     //TOFIX: Wrong name between uid and image/audio file name
     NSMutableDictionary *stillProfile = [[NSMutableDictionary alloc] init];
@@ -511,6 +541,85 @@
     NSArray *pathComponents = [NSArray arrayWithObjects:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], kTempAudioFilePath, nil];
     NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     return outputFileURL;
+}
+
+- (UIImage *)fixRotationWithImage:(UIImage *)image{
+    
+    NSInteger orientation = self.takenImageOrientation;
+    
+    if (orientation == UIImageOrientationUp) return image;
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (orientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.width, image.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+            
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, image.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationUpMirrored:
+            break;
+    }
+    
+    switch (orientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+            
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationDown:
+        case UIImageOrientationLeft:
+        case UIImageOrientationRight:
+            break;
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, image.size.width, image.size.height,
+                                             CGImageGetBitsPerComponent(image.CGImage), 0,
+                                             CGImageGetColorSpace(image.CGImage),
+                                             CGImageGetBitmapInfo(image.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (orientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0,0,image.size.height,image.size.width), image.CGImage);
+            break;
+            
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,image.size.width,image.size.height), image.CGImage);
+            break;
+    }
+    
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
+    
 }
 
 @end

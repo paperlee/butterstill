@@ -143,4 +143,27 @@ static sqlite3_stmt *statement = nil;
     return nil;
 }
 
+-(BOOL) deleteData:(NSInteger)row_id{
+    const char *dpath = [databasePath UTF8String];
+    if (sqlite3_open(dpath, &database) == SQLITE_OK){
+        //NSLog(@"level1");
+        NSString *query = [NSString stringWithFormat:@"DELETE FROM stillsprofile WHERE id=%d",row_id];
+        
+        //NSLog(@"%@",query);
+        const char *query_stmt = [query UTF8String];
+        //NSLog(@"%s",query_stmt);
+        sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE){
+            //NSLog(@"level2");
+            return YES;
+        } else {
+            //NSLog(@"level3");
+            return NO;
+        }
+        sqlite3_reset(statement);
+    }
+    
+    return NO;
+}
+
 @end

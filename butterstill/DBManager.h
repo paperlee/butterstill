@@ -17,5 +17,6 @@
 -(BOOL)createDB;
 -(BOOL)saveData:(NSMutableDictionary *)data;
 -(NSArray *)getDatas;
+-(BOOL)deleteData:(NSInteger)row_id;
 
 @end
