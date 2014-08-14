@@ -24,6 +24,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="363"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
+                                        <view tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2w-Oc-Xik">
+                                            <rect key="frame" x="0.0" y="251" width="320" height="110"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="110" id="vRr-EU-8X8"/>
+                                            </constraints>
+                                        </view>
                                         <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BD3-4Q-7bY">
                                             <rect key="frame" x="246" y="308" width="54" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -39,11 +47,14 @@
                                         </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="k2w-Oc-Xik" firstAttribute="leading" secondItem="HYQ-tq-ugC" secondAttribute="leading" id="4h7-sT-AOO"/>
                                         <constraint firstItem="7oH-xQ-MMs" firstAttribute="top" secondItem="HYQ-tq-ugC" secondAttribute="top" id="7rT-a9-uMt"/>
                                         <constraint firstAttribute="trailing" secondItem="7oH-xQ-MMs" secondAttribute="trailing" id="LrJ-qc-xfE"/>
                                         <constraint firstItem="7oH-xQ-MMs" firstAttribute="leading" secondItem="HYQ-tq-ugC" secondAttribute="leading" id="NZ6-TI-Koh"/>
                                         <constraint firstAttribute="bottom" secondItem="7oH-xQ-MMs" secondAttribute="bottom" id="U2Z-cz-9v7"/>
                                         <constraint firstAttribute="bottom" secondItem="BD3-4Q-7bY" secondAttribute="bottom" constant="11" id="gRq-oJ-10I"/>
+                                        <constraint firstAttribute="bottom" secondItem="k2w-Oc-Xik" secondAttribute="bottom" constant="2" id="hCh-4P-LfN"/>
+                                        <constraint firstAttribute="trailing" secondItem="k2w-Oc-Xik" secondAttribute="trailing" id="pHm-T7-Uct"/>
                                         <constraint firstAttribute="trailing" secondItem="BD3-4Q-7bY" secondAttribute="trailing" constant="20" id="wdq-Bz-sPQ"/>
                                     </constraints>
                                 </tableViewCellContentView>

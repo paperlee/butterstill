@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "EZAudio.h"
 
-@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate>
+@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate, EZAudioFileDelegate>
 
 @property (nonatomic,strong) NSArray *stillsData;
 //@property (nonatomic,weak) NSIndexPath *currentPlayIndexPath;
+@property (nonatomic,assign) BOOL isAutoPlaying;
 
 @end

@@ -15,6 +15,10 @@
 }
 
 @property (nonatomic,assign) BOOL isInit;
+@property (nonatomic,strong) EZAudioPlot *audioPlot;
+@property (nonatomic,strong) EZAudioFile *audioFile;
+@property (nonatomic,assign) NSInteger currentCenterIndexPathRow;
+@property (nonatomic,assign) NSInteger playingIndexPathRow;
 
 @end
 
@@ -148,11 +152,17 @@
     if (indexPath != nil){
        // NSLog(@"YES I AM IN");
         // Play sound
-        if ([audioPlayer isPlaying]){
+        
+        if ([sender isSelected]){
             [audioPlayer stop];
             
             [sender setSelected:NO];
+            //self.playingIndexPathRow = [indexPath row];
         } else {
+            
+            if (audioPlayer.isPlaying){
+                [audioPlayer stop];
+            }
             
             NSError *error = nil;
             NSString *audioFileName = [[self.stillsData objectAtIndex:[indexPath row]] valueForKey:@"audio"];
@@ -171,6 +181,8 @@
             dispatch_after(popTime, dispatch_get_main_queue(), ^{
                 [sender setSelected:NO];
             });
+            
+            self.isAutoPlaying = NO;
         }
     }
 }
@@ -225,19 +237,30 @@
 */
 
 #pragma mark AVAudioPlayerDelegate
-/*- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     NSLog(@"Finished playing...");
     
+    // Anway isAutoPlaying is NO
+    self.isAutoPlaying = NO;
     
-    NSLog(@"current play index path: %@",self.currentPlayIndexPath);
-    if (self.currentPlayIndexPath){
-        NSLog(@"current play index path: %@",self.currentPlayIndexPath);
-        UITableViewCell *currentPlayingCell = [self.tableView cellForRowAtIndexPath:self.currentPlayIndexPath];
-        UIButton *buttonPlay = (UIButton *)[currentPlayingCell viewWithTag:101];
-        [buttonPlay setSelected:NO];
-    }
-    
-}*/
+    //NSLog(@"Shall stop at %d",self.currentCenterIndexPathRow);
+}
+
+#pragma mark - EZAudioPlot
+-(void)initAudioPlotForView:(UIView *)view{
+    self.audioPlot = [[EZAudioPlot alloc] initWithFrame:view.frame];
+    [view addSubview:self.audioPlot];
+    self.audioPlot.clipsToBounds = NO;
+    self.audioPlot.opaque = NO;
+    self.audioPlot.backgroundColor = [UIColor colorWithRed:0.816 green:0.249 blue:0.255 alpha:0];
+    self.audioPlot.color = [UIColor colorWithRed:0.9 green:0.12 blue:0.13 alpha:0.4];
+    self.audioPlot.plotType = EZPlotTypeRolling;
+    self.audioPlot.shouldFill = YES;
+    self.audioPlot.shouldMirror = YES;
+    self.audioPlot.hidden = YES;
+    self.audioPlot.gain = 10;
+    self.audioPlot.userInteractionEnabled = NO;
+}
 
 #pragma mark - expand and schrink
 -(void)expand{
@@ -265,6 +288,11 @@
     // Cancel all queue
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoPlayCenterPost) object:nil];
     
+    /*if (self.isAutoPlaying && audioPlayer.isPlaying){
+        [audioPlayer stop];
+        self.isAutoPlaying = NO;
+    }*/
+    
     startContentOffset = lastContentOffset = scrollView.contentOffset.y;
 }
 
@@ -284,13 +312,26 @@
             [self contract];
         }
     }
+    
+    CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
+    CGPoint centerInTable = [self.view convertPoint:center fromView:self.tableView.superview];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:centerInTable];
+    if ([indexPath row] != self.currentCenterIndexPathRow){
+        // Scroll to another post
+        if (self.isAutoPlaying && audioPlayer.isPlaying){
+            [audioPlayer stop];
+            self.isAutoPlaying = NO;
+        }
+    }
+    
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     /*CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];*/
-    [self performSelector:@selector(autoPlayCenterPost) withObject:nil afterDelay:3];
+    [self performSelector:@selector(autoPlayCenterPost) withObject:nil afterDelay:1];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -308,6 +349,10 @@
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:centerInTable];
     NSLog(@"Center index path is %@",indexPath);
+    
+    self.currentCenterIndexPathRow = [indexPath row];
+    
+    // Play audio
     if (audioPlayer.isPlaying){
         [audioPlayer stop];
     }
@@ -319,8 +364,20 @@
     if (error){
         NSLog(@"Error play audio: %@",error);
     }
+    self.isAutoPlaying = YES;
     [audioPlayer setDelegate:self];
     [audioPlayer play];
+    
+    // UI
+    UITableViewCell *centerCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIButton *buttonPlay = (UIButton *)[centerCell viewWithTag:101];
+    [buttonPlay setSelected:YES];
+    double audioDuration = audioPlayer.duration;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, audioDuration * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^{
+        [buttonPlay setSelected:NO];
+    });
+    
 }
 
 #pragma mark - Utility
