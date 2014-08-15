@@ -15,8 +15,8 @@
 }
 
 @property (nonatomic,assign) BOOL isInit;
-@property (nonatomic,strong) EZAudioPlot *audioPlot;
-@property (nonatomic,strong) EZAudioFile *audioFile;
+//@property (nonatomic,strong) EZAudioPlot *audioPlot;
+//@property (nonatomic,strong) EZAudioFile *audioFile;
 @property (nonatomic,assign) NSInteger currentCenterIndexPathRow;
 @property (nonatomic,assign) NSInteger playingIndexPathRow;
 
@@ -95,7 +95,7 @@
 {
 
     // Return the number of rows in the section.
-    NSLog(@"There are %d rows.",[self.stillsData count]);
+    //NSLog(@"There are %d rows.",[self.stillsData count]);
     return [self.stillsData count];
 }
 
@@ -168,7 +168,7 @@
             [sender setSelected:NO];
             
             if (self.playingIndexPathRow != -1){
-                NSLog(@"Actively stop audio at %d",self.playingIndexPathRow);
+                NSLog(@"Actively stop audio at %ld",(long)self.playingIndexPathRow);
                 NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
                 UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
                 UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];
@@ -233,7 +233,7 @@
         NSMutableDictionary *deletingData = [self.stillsData objectAtIndex:[indexPath row]];
         NSInteger row_id = [[deletingData valueForKey:@"row_id"] intValue];
         
-        NSLog(@"Prepare to delete %d and db id is %d",[indexPath row],row_id);
+        NSLog(@"Prepare to delete %ld and db id is %ld",(long)[indexPath row],(long)row_id);
         BOOL deleteSuccess = [[DBManager getSharedInstance] deleteData:row_id];
         if (deleteSuccess){
             // Delete audio and image file
@@ -299,7 +299,7 @@
             [audioPlayer stop];
             
             if (self.playingIndexPathRow != -1){
-                NSLog(@"Passively stop audio at %d",self.playingIndexPathRow);
+                NSLog(@"Passively stop audio at %ld",(long)self.playingIndexPathRow);
                 NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
                 UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
                 UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];
@@ -337,6 +337,7 @@
     
 }
 
+/*
 #pragma mark - EZAudioPlot
 -(void)initAudioPlotForView:(UIView *)view{
     self.audioPlot = [[EZAudioPlot alloc] initWithFrame:view.frame];
@@ -351,7 +352,7 @@
     self.audioPlot.hidden = YES;
     self.audioPlot.gain = 10;
     self.audioPlot.userInteractionEnabled = NO;
-}
+}*/
 
 #pragma mark - expand and schrink
 -(void)expand{
@@ -417,7 +418,7 @@
             self.isAutoPlaying = NO;
             
             if (self.playingIndexPathRow != -1){
-                NSLog(@"Passively stop audio at %d",self.playingIndexPathRow);
+                NSLog(@"Passively stop audio at %ld",(long)self.playingIndexPathRow);
                 NSIndexPath *ip = [NSIndexPath indexPathForRow:self.playingIndexPathRow inSection:0];
                 UITableViewCell *playingCell = [self.tableView cellForRowAtIndexPath:ip];
                 UIButton *buttonPlay = (UIButton *)[playingCell viewWithTag:101];

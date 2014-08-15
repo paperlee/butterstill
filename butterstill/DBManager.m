@@ -138,7 +138,7 @@ static sqlite3_stmt *statement = nil;
             sqlite3_close(database);
             
         }
-        NSLog(@"%@",resultArray);
+        //NSLog(@"%@",resultArray);
         return resultArray;
     }
     NSLog(@"Get all datas wrong!");

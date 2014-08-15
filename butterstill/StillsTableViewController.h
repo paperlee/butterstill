@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "EZAudio.h"
+//#import "EZAudio.h"
 
-@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate, EZAudioFileDelegate>
+@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *stillsData;
 //@property (nonatomic,weak) NSIndexPath *currentPlayIndexPath;

@@ -277,6 +277,7 @@
     }*/
     
     self.takenImageOrientation = [[UIDevice currentDevice] orientation];
+    NSLog(@"Now the orientation is %d",self.takenImageOrientation);
     
     // adjust image orientation
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft){
@@ -414,21 +415,17 @@
     
     NSInteger shallImageOrientation;
     switch (self.takenImageOrientation) {
-        case UIImageOrientationRight:
-            NSLog(@"right");
-            shallImageOrientation = UIImageOrientationUp;
-            break;
-        case UIImageOrientationDown:
-            NSLog(@"down");
-            shallImageOrientation = UIImageOrientationRight;
-            break;
-        case UIImageOrientationLeft:
-            NSLog(@"left");
+        case UIDeviceOrientationPortraitUpsideDown:
             shallImageOrientation = UIImageOrientationLeft;
             break;
-        default:
-            NSLog(@"up");
+        case UIDeviceOrientationLandscapeRight:
             shallImageOrientation = UIImageOrientationDown;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            shallImageOrientation = UIImageOrientationUp;
+            break;
+        default:
+            shallImageOrientation = UIImageOrientationRight;
             break;
     }
     
@@ -570,7 +567,7 @@
     return outputFileURL;
 }
 
-- (UIImage *)fixRotationWithImage:(UIImage *)image{
+/*- (UIImage *)fixRotationWithImage:(UIImage *)image{
     
     NSInteger orientation = self.takenImageOrientation;
     
@@ -647,6 +644,6 @@
     CGImageRelease(cgimg);
     return img;
     
-}
+}*/
 
 @end
