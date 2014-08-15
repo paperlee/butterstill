@@ -36,7 +36,6 @@
         // Custom initialization
         hidden = NO;
         self.isAutoPlaying = NO;
-        self.currentCenterIndexPathRow = -1;
         self.playingIndexPathRow = -1;
     }
     return self;
@@ -49,6 +48,7 @@
     self.stillsData = [[DBManager getSharedInstance] getDatas];
     self.isInit = YES;
     
+    self.currentCenterIndexPathRow = -1;
     //[self.tableView setEditing:YES];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -435,7 +435,17 @@
     /*CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];*/
+    //NSLog(@"Did end dragging: %d",self.currentCenterIndexPathRow);
+    
+    CGPoint center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2);
+    CGPoint centerInTable = [self.view convertPoint:center fromView:self.tableView.superview];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:centerInTable];
+    if (self.currentCenterIndexPathRow == [indexPath row] && audioPlayer.isPlaying){
+        return;
+    }
     [self performSelector:@selector(autoPlayCenterPost) withObject:nil afterDelay:1];
+    
 }
 
 -(void)scrollViewDidEndDecfelerating:(UIScrollView *)scrollView{
@@ -457,6 +467,13 @@
     if (indexPath == nil){
         return;
     }
+    
+    //NSLog(@"Old center is %d",self.currentCenterIndexPathRow);
+    //NSLog(@"Current center is %d",[indexPath row]);
+    
+    /*if (self.currentCenterIndexPathRow == [indexPath row]){
+        return;
+    }*/
     
     self.currentCenterIndexPathRow = [indexPath row];
     
