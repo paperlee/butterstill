@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *imagePreview;
 @property (weak, nonatomic) IBOutlet UIImageView *captureImage;
 @property (weak, nonatomic) IBOutlet UIView *soundWaveView;
+@property (weak, nonatomic) IBOutlet UILabel *hintText;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 @property (weak, nonatomic) IBOutlet UIButton *buttonPlay;

@@ -105,6 +105,19 @@
     self.audioPlot.hidden = YES;
     self.audioPlot.gain = 3;
     self.audioPlot.userInteractionEnabled = NO;
+    
+    // Assign button images animation
+    NSMutableArray *images = [[NSMutableArray alloc] initWithCapacity:15];
+    UIImage *tempImage = nil;
+    for (int i = 1;i<16;i++){
+        tempImage = [UIImage imageNamed:[NSString stringWithFormat:@"icon_butterfly%04d",i]];
+        [images addObject:tempImage];
+    }
+    
+    self.buttonTake.imageView.animationImages = images;
+    [self.buttonTake.imageView startAnimating];
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -310,11 +323,15 @@
 }
 
 - (IBAction)snapImage:(UIButton *)sender {
+    // Prepare UI
     captureImage.image = nil;
     [captureImage setHidden:NO];
     [imagePreview setHidden:YES];
     
-    [self capImage];
+    // Hold butterfly
+    [sender.imageView stopAnimating];
+    [sender setImageEdgeInsets:UIEdgeInsetsMake(-8, 0, 0, 8)];
+    [self.hintText setText:@"Hold on..."];
     
     // Recording
     // Stop audio palyer pior to recording
@@ -322,6 +339,7 @@
         [audioPlayer stop];
     }
     
+    [self capImage];
     
 }
 
@@ -354,6 +372,11 @@
     if (error){
         NSLog(@"Fail to inactive session: %@",error);
     }
+    
+    // Butterfly fly again
+    //[sender.imageView startAnimating];
+    [sender setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.hintText setText:@"Tap to Retake"];
     
     // UI
     /*[self.buttonPlay setEnabled:YES];
@@ -474,6 +497,9 @@
     [self.buttonRetake setHidden:YES];
     [self.buttonSave setEnabled:NO];
     [self.buttonTake setHidden:NO];
+    [self.buttonTake setEnabled:YES];
+    [self.buttonTake.imageView startAnimating];
+    [self.hintText setText:@"Tap and Hold"];
     
     [imagePreview setHidden:NO];
     [captureImage setHidden:YES];
@@ -507,7 +533,8 @@
     // Prepare UI after finishing recording
     [self.buttonPlay setEnabled:YES];
     [self.buttonSave setEnabled:YES];
-    [self.buttonTake setHidden:YES];
+    //[self.buttonTake setHidden:YES];
+    [self.buttonTake setEnabled:NO];
     [self.buttonRetake setHidden:NO];
 }
 

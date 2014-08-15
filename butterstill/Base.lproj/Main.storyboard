@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8st-bU-2Yy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8st-bU-2Yy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -134,33 +134,42 @@
                                     <action selector="buttonClose:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jCg-uO-4b7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1w-fQ-G7N">
-                                <rect key="frame" x="99" y="511" width="121" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1w-fQ-G7N" userLabel="Button - tap and hold">
+                                <rect key="frame" x="130" y="488" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="cV5-4c-NxL"/>
-                                    <constraint firstAttribute="width" constant="121" id="sCb-lA-bwY"/>
+                                    <constraint firstAttribute="height" constant="60" id="cV5-4c-NxL"/>
+                                    <constraint firstAttribute="width" constant="60" id="sCb-lA-bwY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Tap and Hold">
+                                <state key="normal" image="icon_butterfly0001.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" title="Retake"/>
-                                <state key="highlighted" title="Hold on"/>
                                 <connections>
                                     <action selector="snapImage:" destination="vXZ-lx-hvc" eventType="touchDown" id="Pw6-N4-xTR"/>
                                     <action selector="snapImageEnd:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Hu8-SY-Ry3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap and Hold" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bm4-fV-vfU">
+                                <rect key="frame" x="100" y="467" width="120" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="glL-Nb-Jd8"/>
+                                    <constraint firstAttribute="width" constant="120" id="vAy-ro-E03"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="1" green="0.002828156662" blue="0.40279419189999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-7e-NWk">
-                                <rect key="frame" x="99" y="511" width="121" height="44"/>
+                                <rect key="frame" x="99" y="496" width="121" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="121" id="6pZ-nf-GgW"/>
                                     <constraint firstAttribute="height" constant="44" id="imo-Iv-STX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Retake">
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -168,7 +177,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWr-Dc-Ggu">
-                                <rect key="frame" x="25" y="511" width="46" height="44"/>
+                                <rect key="frame" x="25" y="496" width="46" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="8wg-KV-yvk"/>
@@ -183,7 +192,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svM-we-fjw">
-                                <rect key="frame" x="250" y="511" width="46" height="44"/>
+                                <rect key="frame" x="250" y="496" width="46" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="vcc-AM-oBY"/>
@@ -205,7 +214,8 @@
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="CPd-m1-DPx"/>
                             <constraint firstAttribute="trailing" secondItem="OGi-sM-fqs" secondAttribute="trailing" id="Eqk-yI-XY6"/>
                             <constraint firstItem="pWr-Dc-Ggu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="25" id="Eua-by-On2"/>
-                            <constraint firstAttribute="centerX" secondItem="H1w-fQ-G7N" secondAttribute="centerX" constant="0.5" id="Ha9-bf-V8g"/>
+                            <constraint firstAttribute="centerX" secondItem="H1w-fQ-G7N" secondAttribute="centerX" id="Ha9-bf-V8g"/>
+                            <constraint firstItem="H1w-fQ-G7N" firstAttribute="top" secondItem="bm4-fV-vfU" secondAttribute="bottom" id="Mt5-jy-oeh"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="centerY" secondItem="A5a-Mm-fqV" secondAttribute="centerY" id="TVB-FS-pkv"/>
                             <constraint firstItem="afD-Rb-jfP" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="UIo-E5-x93"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="centerX" secondItem="A5a-Mm-fqV" secondAttribute="centerX" id="Vme-hs-EXT"/>
@@ -213,13 +223,14 @@
                             <constraint firstItem="pWr-Dc-Ggu" firstAttribute="centerY" secondItem="Bo7-7e-NWk" secondAttribute="centerY" id="ajC-Vj-W6Z"/>
                             <constraint firstItem="Ums-9B-yRm" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="brJ-Ku-CE7"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="btD-bo-xAL"/>
+                            <constraint firstItem="H1w-fQ-G7N" firstAttribute="centerX" secondItem="bm4-fV-vfU" secondAttribute="centerX" id="d9p-Lb-bm1"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="width" secondItem="A5a-Mm-fqV" secondAttribute="width" id="doP-HB-0d6"/>
                             <constraint firstItem="afD-Rb-jfP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fXa-93-hHb"/>
                             <constraint firstAttribute="centerX" secondItem="Bo7-7e-NWk" secondAttribute="centerX" constant="0.5" id="jXV-Fu-AAB"/>
                             <constraint firstItem="H1w-fQ-G7N" firstAttribute="centerY" secondItem="Bo7-7e-NWk" secondAttribute="centerY" id="nTK-v7-k8G"/>
                             <constraint firstAttribute="trailing" secondItem="afD-Rb-jfP" secondAttribute="trailing" id="p7p-kp-0P1"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="afD-Rb-jfP" secondAttribute="bottom" id="qoL-xi-Zfe"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="H1w-fQ-G7N" secondAttribute="bottom" constant="13" id="vJr-rG-9Xh"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="H1w-fQ-G7N" secondAttribute="bottom" constant="20" id="vJr-rG-9Xh"/>
                             <constraint firstAttribute="trailing" secondItem="svM-we-fjw" secondAttribute="trailing" constant="24" id="xQZ-VO-ncs"/>
                         </constraints>
                     </view>
@@ -230,6 +241,7 @@
                         <outlet property="buttonSave" destination="svM-we-fjw" id="BxH-GA-n0T"/>
                         <outlet property="buttonTake" destination="H1w-fQ-G7N" id="ply-Rx-Rjb"/>
                         <outlet property="captureImage" destination="A5a-Mm-fqV" id="DjN-ZC-wde"/>
+                        <outlet property="hintText" destination="bm4-fV-vfU" id="TMn-Lf-lFt"/>
                         <outlet property="imagePreview" destination="OGi-sM-fqs" id="yiV-6R-BIp"/>
                         <outlet property="soundWaveView" destination="afD-Rb-jfP" id="tem-ky-SEQ"/>
                     </connections>
@@ -263,6 +275,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_butterfly0001.png" width="60" height="60"/>
         <image name="logo.png" width="30" height="30"/>
     </resources>
     <color key="tintColor" red="1" green="0.002828156662" blue="0.40279419189999999" alpha="1" colorSpace="calibratedRGB"/>
