@@ -97,7 +97,7 @@
     [self.soundWaveView addSubview:self.audioPlot];
     self.audioPlot.clipsToBounds = NO;
     self.audioPlot.opaque = NO;
-    self.audioPlot.backgroundColor = [UIColor colorWithRed:0.816 green:0.249 blue:0.255 alpha:0];
+    self.audioPlot.backgroundColor = [UIColor clearColor];
     self.audioPlot.color = [UIColor colorWithRed:0.9 green:0.12 blue:0.13 alpha:0.4];
     self.audioPlot.plotType = EZPlotTypeRolling;
     self.audioPlot.shouldFill = YES;
@@ -510,7 +510,7 @@
     [self.soundWaveView addSubview:self.audioPlot];
     self.audioPlot.clipsToBounds = NO;
     self.audioPlot.opaque = NO;
-    self.audioPlot.backgroundColor = [UIColor colorWithRed:0.816 green:0.249 blue:0.255 alpha:0];
+    self.audioPlot.backgroundColor = [UIColor clearColor];
     self.audioPlot.color = [UIColor colorWithRed:0.9 green:0.12 blue:0.13 alpha:0.4];
     self.audioPlot.plotType = EZPlotTypeRolling;
     self.audioPlot.shouldFill = YES;

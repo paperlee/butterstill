@@ -236,11 +236,18 @@
       xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
       CGPathAddPath( path, &xf, halfPath );
       
+        if (self.shouldFill){
+            CGPathAddLineToPoint(path, NULL, frame.size.width, halfHeight);
+        }
+        
       if( self.shouldMirror ){
         xf = CGAffineTransformIdentity;
         xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y);
         xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*(halfHeight));
         CGPathAddPath( path, &xf, halfPath );
+          if (self.shouldFill){
+              CGPathAddLineToPoint(path, NULL, frame.size.width, halfHeight);
+          }
       }
       CGPathRelease( halfPath );
       
