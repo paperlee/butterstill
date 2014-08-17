@@ -214,6 +214,7 @@
     }
     
     NSLog(@"about to request from: %@",stillImageOutput);
+    self.isRecording = YES;
     [stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error){
         
         if (imageSampleBuffer != NULL){
@@ -221,12 +222,13 @@
             [self processImage:[UIImage imageWithData:imageDate]];
             
             // Start recording
+            //[self performSelector:@selector(startRecording) withObject:nil afterDelay:0.5];
             double delayInSeconds = 0.5;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            self.isRecording = YES;
+            //self.isRecording = YES;
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 if (!audioRecorder.isRecording && self.isRecording){
-                    NSLog(@"Init recorder: %hhd :: %hhd",audioRecorder.isRecording,self.isRecording);
+                    //NSLog(@"Init recorder: %hhd :: %hhd",audioRecorder.isRecording,self.isRecording);
                     AVAudioSession *session = [AVAudioSession sharedInstance];
                     NSError *error = nil;
                     [session setActive:YES error:&error];
@@ -287,7 +289,7 @@
     }*/
     
     self.takenImageOrientation = [[UIDevice currentDevice] orientation];
-    NSLog(@"Now the orientation is %d",self.takenImageOrientation);
+    NSLog(@"Now the orientation is %ld",(long)self.takenImageOrientation);
     
     // adjust image orientation
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft){
@@ -325,7 +327,24 @@
     }
 }
 
-
+- (void)startRecording{
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *error = nil;
+    [session setActive:YES error:&error];
+    if (error){
+        NSLog(@"Fail to active session: %@",error);
+    }
+    
+    //Start recording
+    [audioRecorder record];
+    
+    
+    //[self.audioPlot clear];
+    
+    [self.audioPlot setHidden:NO];
+    
+    [self.microphone startFetchingAudio];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -362,20 +381,25 @@
     if (audioRecorder.recording){
         [audioRecorder stop];
         [self.microphone stopFetchingAudio];
-        
+        self.isRecording = NO;
     } else{
+        NSLog(@"Still in queue. Cancel the pending request.");
+        //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startRecording) object:nil];
         if (self.isRecording){
+            NSLog(@"Still in queue. Cancel the pending request. 2");
             // still in delay recording process...
-            double delayInSeconds = 0.5;
+            double delayInSeconds = 1;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                NSLog(@"Pending to stop the recorder");
                 [audioRecorder stop];
                 [self.microphone stopFetchingAudio];
+                self.isRecording = NO;
             });
         }
     }
     
-    self.isRecording = NO;
+    
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     NSError *error = nil;
@@ -554,7 +578,10 @@
 #pragma mark EZMicrophoneDelegate
 - (void) microphone:(EZMicrophone *)microphone hasAudioReceived:(float **)buffer withBufferSize:(UInt32)bufferSize withNumberOfChannels:(UInt32)numberOfChannels{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+        if (audioRecorder.isRecording){
+            [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+        }
+        
     });
 }
 
