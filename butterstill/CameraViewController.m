@@ -80,6 +80,9 @@
     [recordSettings setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
     [recordSettings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
     [recordSettings setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+    [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+    [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+    [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
     
     // Init and preapre the recorder
     NSError *initRecorderError = nil;
@@ -377,7 +380,7 @@
     // Butterfly fly again
     //[sender.imageView startAnimating];
     [sender setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [self.hintText setText:@"Tap to Retake"];
+    [self.hintText setText:@"Retake"];
     
     // UI
     /*[self.buttonPlay setEnabled:YES];
