@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8st-bU-2Yy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8st-bU-2Yy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -205,9 +205,66 @@
                                     <action selector="saveAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KiU-Pu-81Y"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XC-qj-nnE" userLabel="View - hold">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You released the butterfly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="xlm-JE-VnO">
+                                        <rect key="frame" x="60" y="242" width="200" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="YSl-ht-HDH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep holding the butterfly to record sound" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="lAo-wI-qFE">
+                                        <rect key="frame" x="60" y="274" width="200" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="Pur-c8-oDr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_butterfly0001.png" translatesAutoresizingMaskIntoConstraints="NO" id="rhD-nJ-1m9">
+                                        <rect key="frame" x="130" y="322" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="Akb-5h-fjQ"/>
+                                            <constraint firstAttribute="height" constant="60" id="vX6-Rp-BFB"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEr-pJ-I7q">
+                                        <rect key="frame" x="20" y="380" width="280" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="Kxu-Tm-gRm"/>
+                                            <constraint firstAttribute="height" constant="44" id="o9b-lQ-jcE"/>
+                                        </constraints>
+                                        <state key="normal" title="Ok Got it!">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="xlm-JE-VnO" secondAttribute="centerY" constant="32.5" id="24w-Ev-ZZ8"/>
+                                    <constraint firstItem="xlm-JE-VnO" firstAttribute="centerX" secondItem="rhD-nJ-1m9" secondAttribute="centerX" id="8Tx-lr-fJZ"/>
+                                    <constraint firstAttribute="centerX" secondItem="xlm-JE-VnO" secondAttribute="centerX" id="TKk-1h-MOr"/>
+                                    <constraint firstItem="xlm-JE-VnO" firstAttribute="centerX" secondItem="sEr-pJ-I7q" secondAttribute="centerX" id="VW1-hE-MPn"/>
+                                    <constraint firstItem="lAo-wI-qFE" firstAttribute="centerX" secondItem="xlm-JE-VnO" secondAttribute="centerX" id="Zix-Ya-XkU"/>
+                                    <constraint firstItem="rhD-nJ-1m9" firstAttribute="top" secondItem="lAo-wI-qFE" secondAttribute="bottom" constant="9" id="aLY-b4-ZHq"/>
+                                    <constraint firstItem="lAo-wI-qFE" firstAttribute="top" secondItem="xlm-JE-VnO" secondAttribute="bottom" constant="12" id="cy4-X2-6ic"/>
+                                    <constraint firstItem="sEr-pJ-I7q" firstAttribute="top" secondItem="rhD-nJ-1m9" secondAttribute="bottom" constant="-2" id="j2f-aN-WX0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6XC-qj-nnE" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0EW-HC-p73"/>
                             <constraint firstItem="H1w-fQ-G7N" firstAttribute="centerY" secondItem="svM-we-fjw" secondAttribute="centerY" id="4hm-XG-2Vv"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="height" secondItem="A5a-Mm-fqV" secondAttribute="height" id="8Ge-Mn-Nyr"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OGi-sM-fqs" secondAttribute="bottom" id="990-Kc-27y"/>
@@ -218,6 +275,7 @@
                             <constraint firstItem="H1w-fQ-G7N" firstAttribute="top" secondItem="bm4-fV-vfU" secondAttribute="bottom" id="Mt5-jy-oeh"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="centerY" secondItem="A5a-Mm-fqV" secondAttribute="centerY" id="TVB-FS-pkv"/>
                             <constraint firstItem="afD-Rb-jfP" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="UIo-E5-x93"/>
+                            <constraint firstItem="6XC-qj-nnE" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="ViQ-4w-fUI"/>
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="centerX" secondItem="A5a-Mm-fqV" secondAttribute="centerX" id="Vme-hs-EXT"/>
                             <constraint firstAttribute="centerX" secondItem="Ums-9B-yRm" secondAttribute="centerX" constant="0.5" id="aDO-aj-zl7"/>
                             <constraint firstItem="pWr-Dc-Ggu" firstAttribute="centerY" secondItem="Bo7-7e-NWk" secondAttribute="centerY" id="ajC-Vj-W6Z"/>
@@ -227,11 +285,13 @@
                             <constraint firstItem="OGi-sM-fqs" firstAttribute="width" secondItem="A5a-Mm-fqV" secondAttribute="width" id="doP-HB-0d6"/>
                             <constraint firstItem="afD-Rb-jfP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="fXa-93-hHb"/>
                             <constraint firstAttribute="centerX" secondItem="Bo7-7e-NWk" secondAttribute="centerX" constant="0.5" id="jXV-Fu-AAB"/>
+                            <constraint firstAttribute="trailing" secondItem="6XC-qj-nnE" secondAttribute="trailing" id="kU2-Hk-gGa"/>
                             <constraint firstItem="H1w-fQ-G7N" firstAttribute="centerY" secondItem="Bo7-7e-NWk" secondAttribute="centerY" id="nTK-v7-k8G"/>
                             <constraint firstAttribute="trailing" secondItem="afD-Rb-jfP" secondAttribute="trailing" id="p7p-kp-0P1"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="afD-Rb-jfP" secondAttribute="bottom" id="qoL-xi-Zfe"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="H1w-fQ-G7N" secondAttribute="bottom" constant="20" id="vJr-rG-9Xh"/>
                             <constraint firstAttribute="trailing" secondItem="svM-we-fjw" secondAttribute="trailing" constant="24" id="xQZ-VO-ncs"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="6XC-qj-nnE" secondAttribute="bottom" id="zlk-L2-Oyq"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
