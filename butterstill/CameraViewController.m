@@ -74,6 +74,13 @@
         NSLog(@"Fail to create session: %@",error);
     }
     
+    // To fix volume too small problem in iPhone
+    NSError *setOverrideError = nil;
+    [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&setOverrideError];
+    if (setOverrideError){
+        NSLog(@"Set Override Speaker error: %@",setOverrideError);
+    }
+    
     // Define the recorder settings
     NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     
