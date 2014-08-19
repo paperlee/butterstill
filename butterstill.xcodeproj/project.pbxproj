@@ -58,6 +58,7 @@
 		20A7D6511998C647007BE12E /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A7D6501998C647007BE12E /* DBManager.m */; };
 		20AC2BAD1999B6A700D496AE /* StillProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AC2BAC1999B6A700D496AE /* StillProfile.m */; };
 		20AC2BB01999D21600D496AE /* StillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AC2BAF1999D21600D496AE /* StillsTableViewController.m */; };
+		20F866B419A2EF1800A5CECE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20F866B319A2EF1800A5CECE /* CoreLocation.framework */; };
 		BA9D1B92B65841F1AB980129 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1629F127CF0746E2BFB8BBB9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,8 @@
 		20AC2BAC1999B6A700D496AE /* StillProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillProfile.m; sourceTree = "<group>"; };
 		20AC2BAE1999D21600D496AE /* StillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StillsTableViewController.h; sourceTree = "<group>"; };
 		20AC2BAF1999D21600D496AE /* StillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillsTableViewController.m; sourceTree = "<group>"; };
+		20F866B319A2EF1800A5CECE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		20F866B619A2F3CA00A5CECE /* butterstill-keys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "butterstill-keys.h"; sourceTree = "<group>"; };
 		C6E66DB01A324F1DAAD42600 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20F866B419A2EF1800A5CECE /* CoreLocation.framework in Frameworks */,
 				20A7D64E1998C5DB007BE12E /* libsqlite3.dylib in Frameworks */,
 				20A7D64C19986529007BE12E /* AVFoundation.framework in Frameworks */,
 				20A7D61919986245007BE12E /* CoreGraphics.framework in Frameworks */,
@@ -224,6 +228,7 @@
 		20A7D61519986245007BE12E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				20F866B319A2EF1800A5CECE /* CoreLocation.framework */,
 				20A7D64D1998C5DB007BE12E /* libsqlite3.dylib */,
 				20A7D64B19986529007BE12E /* AVFoundation.framework */,
 				20A7D61619986245007BE12E /* Foundation.framework */,
@@ -263,6 +268,7 @@
 				20A7D61F19986245007BE12E /* InfoPlist.strings */,
 				20A7D62219986245007BE12E /* main.m */,
 				20A7D62419986245007BE12E /* butterstill-Prefix.pch */,
+				20F866B619A2F3CA00A5CECE /* butterstill-keys.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -335,7 +341,7 @@
 				ORGANIZATIONNAME = Paper;
 				TargetAttributes = {
 					20A7D61219986245007BE12E = {
-						DevelopmentTeam = 6ABD535R9B;
+						DevelopmentTeam = YSV4B5LWZ9;
 					};
 					20A7D63319986245007BE12E = {
 						TestTargetID = 20A7D61219986245007BE12E;
@@ -584,10 +590,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "butterstill/butterstill-Prefix.pch";
 				INFOPLIST_FILE = "butterstill/butterstill-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -599,10 +607,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "butterstill/butterstill-Prefix.pch";
 				INFOPLIST_FILE = "butterstill/butterstill-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

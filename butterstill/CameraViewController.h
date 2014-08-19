@@ -8,14 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "EZAudio.h"
 #import "DBManager.h"
 
 #define kTempAudioFilePath @"TempAudio.m4a"
 
-@interface CameraViewController : UIViewController<AVAudioPlayerDelegate,AVAudioRecorderDelegate,EZMicrophoneDelegate>{
+@interface CameraViewController : UIViewController<AVAudioPlayerDelegate,AVAudioRecorderDelegate,EZMicrophoneDelegate,CLLocationManagerDelegate>{
     BOOL FrontCamera;
     BOOL haveImage;
+    
+    CLLocationManager *locationManager;
+    CLLocation *currentLocation;
 }
 
 @property (nonatomic,retain) AVCaptureStillImageOutput *stillImageOutput;
@@ -24,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *captureImage;
 @property (weak, nonatomic) IBOutlet UIView *soundWaveView;
 @property (weak, nonatomic) IBOutlet UILabel *hintText;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 @property (weak, nonatomic) IBOutlet UIButton *buttonPlay;

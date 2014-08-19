@@ -205,6 +205,13 @@
                                     <action selector="saveAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KiU-Pu-81Y"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Searching location..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQt-mR-Ls3">
+                                <rect key="frame" x="20" y="54" width="280" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XC-qj-nnE" userLabel="View - hold">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -303,6 +310,7 @@
                         <outlet property="captureImage" destination="A5a-Mm-fqV" id="DjN-ZC-wde"/>
                         <outlet property="hintText" destination="bm4-fV-vfU" id="TMn-Lf-lFt"/>
                         <outlet property="imagePreview" destination="OGi-sM-fqs" id="yiV-6R-BIp"/>
+                        <outlet property="locationLabel" destination="zQt-mR-Ls3" id="gHC-tF-syu"/>
                         <outlet property="soundWaveView" destination="afD-Rb-jfP" id="tem-ky-SEQ"/>
                     </connections>
                 </viewController>

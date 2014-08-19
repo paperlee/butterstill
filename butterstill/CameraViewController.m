@@ -9,6 +9,7 @@
 #import "CameraViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
+
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
 @interface CameraViewController (){
@@ -55,6 +56,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Get current location
+    [self currentLocationIdentifer];
     
     self.isRecording = NO;
     
@@ -196,6 +200,15 @@
     [session addOutput:stillImageOutput];
     
     [session startRunning];
+}
+
+-(void)currentLocationIdentifer{
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    
 }
 
 - (void)capImage{
@@ -583,6 +596,37 @@
         }
         
     });
+}
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    currentLocation = [locations objectAtIndex:0];
+    // TODO: What if get wrong location? UI flow fix?
+    [locationManager stopUpdatingLocation];
+    
+    NSLog(@"Got location");
+    
+    self.locationLabel.text = [NSString stringWithFormat:@"Lng:%.2f Lat:%.2f",currentLocation.coordinate.latitude,currentLocation.coordinate.latitude];
+    
+    /*CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error){
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            
+        } else {
+            // Error!
+            NSLog(@"Geocode failed with error: %@",error);
+            NSLog(@"Current location fetch error");
+        }
+    }];*/
+    
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"Fail to get location: %@",error);
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Failed to Get Location" message:@"Try again later" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [errorAlert show];
 }
 
 - (IBAction)buttonClose:(UIButton *)sender {
