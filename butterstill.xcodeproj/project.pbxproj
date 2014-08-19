@@ -59,6 +59,10 @@
 		20AC2BAD1999B6A700D496AE /* StillProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AC2BAC1999B6A700D496AE /* StillProfile.m */; };
 		20AC2BB01999D21600D496AE /* StillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AC2BAF1999D21600D496AE /* StillsTableViewController.m */; };
 		20F866B419A2EF1800A5CECE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20F866B319A2EF1800A5CECE /* CoreLocation.framework */; };
+		20F866BA19A32F9100A5CECE /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F866B919A32F9100A5CECE /* Venue.m */; };
+		20F866BE19A3323600A5CECE /* FoursquareCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F866BD19A3323600A5CECE /* FoursquareCommunicator.m */; };
+		20F866C119A3368300A5CECE /* VenueBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F866C019A3368300A5CECE /* VenueBuilder.m */; };
+		20F866C519A34BA100A5CECE /* FoursquareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20F866C419A34BA100A5CECE /* FoursquareManager.m */; };
 		BA9D1B92B65841F1AB980129 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1629F127CF0746E2BFB8BBB9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +139,16 @@
 		20AC2BAF1999D21600D496AE /* StillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillsTableViewController.m; sourceTree = "<group>"; };
 		20F866B319A2EF1800A5CECE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		20F866B619A2F3CA00A5CECE /* butterstill-keys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "butterstill-keys.h"; sourceTree = "<group>"; };
+		20F866B819A32F9100A5CECE /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		20F866B919A32F9100A5CECE /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		20F866BB19A330FA00A5CECE /* FoursquareCommunicatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoursquareCommunicatorDelegate.h; sourceTree = "<group>"; };
+		20F866BC19A3323600A5CECE /* FoursquareCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoursquareCommunicator.h; sourceTree = "<group>"; };
+		20F866BD19A3323600A5CECE /* FoursquareCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoursquareCommunicator.m; sourceTree = "<group>"; };
+		20F866BF19A3368300A5CECE /* VenueBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueBuilder.h; sourceTree = "<group>"; };
+		20F866C019A3368300A5CECE /* VenueBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueBuilder.m; sourceTree = "<group>"; };
+		20F866C219A34B1100A5CECE /* FoursquareManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoursquareManagerDelegate.h; sourceTree = "<group>"; };
+		20F866C319A34BA100A5CECE /* FoursquareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoursquareManager.h; sourceTree = "<group>"; };
+		20F866C419A34BA100A5CECE /* FoursquareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoursquareManager.m; sourceTree = "<group>"; };
 		C6E66DB01A324F1DAAD42600 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,6 +268,16 @@
 				20A7D62819986245007BE12E /* Main.storyboard */,
 				20A7D62B19986245007BE12E /* CameraViewController.h */,
 				20A7D62C19986245007BE12E /* CameraViewController.m */,
+				20F866B819A32F9100A5CECE /* Venue.h */,
+				20F866BB19A330FA00A5CECE /* FoursquareCommunicatorDelegate.h */,
+				20F866BC19A3323600A5CECE /* FoursquareCommunicator.h */,
+				20F866BD19A3323600A5CECE /* FoursquareCommunicator.m */,
+				20F866BF19A3368300A5CECE /* VenueBuilder.h */,
+				20F866C019A3368300A5CECE /* VenueBuilder.m */,
+				20F866C219A34B1100A5CECE /* FoursquareManagerDelegate.h */,
+				20F866C319A34BA100A5CECE /* FoursquareManager.h */,
+				20F866C419A34BA100A5CECE /* FoursquareManager.m */,
+				20F866B919A32F9100A5CECE /* Venue.m */,
 				20A7D62E19986245007BE12E /* Images.xcassets */,
 				20A7D61D19986245007BE12E /* Supporting Files */,
 			);
@@ -459,8 +483,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				20AC2BB01999D21600D496AE /* StillsTableViewController.m in Sources */,
+				20F866BE19A3323600A5CECE /* FoursquareCommunicator.m in Sources */,
 				20AC2BAD1999B6A700D496AE /* StillProfile.m in Sources */,
+				20F866BA19A32F9100A5CECE /* Venue.m in Sources */,
+				20F866C119A3368300A5CECE /* VenueBuilder.m in Sources */,
 				20A7D62D19986245007BE12E /* CameraViewController.m in Sources */,
+				20F866C519A34BA100A5CECE /* FoursquareManager.m in Sources */,
 				20A7D62719986245007BE12E /* AppDelegate.m in Sources */,
 				20A7D62319986245007BE12E /* main.m in Sources */,
 				20A7D6511998C647007BE12E /* DBManager.m in Sources */,
