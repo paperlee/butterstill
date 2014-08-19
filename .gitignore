@@ -24,3 +24,6 @@ xcuserdata/
 
 #Git
 .gitattributes
+
+#Keys
+*-keys.h
