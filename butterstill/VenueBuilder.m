@@ -19,10 +19,10 @@
         *error = localError;
         return nil;
     }
-    
+    //NSLog(@"%@",parsedObject);
     NSMutableArray *venues = [[NSMutableArray alloc] init];
     
-    NSArray *results = [parsedObject valueForKey:@"groups"];
+    NSArray *results = [[parsedObject valueForKey:@"response"] valueForKey:@"groups"];
     NSArray *recommends = [[results objectAtIndex:0] valueForKey:@"items"];
     
     NSLog(@"returned items: %d",recommends.count);

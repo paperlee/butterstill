@@ -138,7 +138,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     // TODO: use ios7+ esstimated row height method
     float rowHeight = [[[self.stillsData objectAtIndex:indexPath.row] valueForKey:@"row_height"] floatValue];
-    NSLog(@"row height: %f",rowHeight);
+    //NSLog(@"row height: %f",rowHeight);
     return rowHeight;
 }
 

@@ -8,14 +8,21 @@
 
 #import "CameraViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import "Venue.h"
+#import "FoursquareManager.h"
+#import "FoursquareCommunicator.h"
 
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
-@interface CameraViewController (){
+@interface CameraViewController ()<FoursquareManagerDelegate>{
     AVAudioPlayer *audioPlayer;
     AVAudioRecorder *audioRecorder;
+    
+    NSArray *_venues;
+    FoursquareManager *_manager;
 }
+
+//@property (weak, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -58,7 +65,15 @@
     [super viewDidLoad];
     
     // Get current location
+    
+    _manager = [[FoursquareManager alloc] init];
+    _manager.communicator = [[FoursquareCommunicator alloc] init];
+    _manager.communicator.delegate = _manager;
+    _manager.delegate = self;
     [self currentLocationIdentifer];
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetchingVenues:) name:@"kCLAuthorizationStatusAuthorized" object:nil];
+    
     
     self.isRecording = NO;
     
@@ -201,6 +216,19 @@
     
     [session startRunning];
 }
+
+/*- (CLLocationManager *)locationManager
+{
+    if (_locationManager) {
+        return _locationManager;
+    }
+    
+    id appDelegate = [[UIApplication sharedApplication] delegate];
+    if ([appDelegate respondsToSelector:@selector(locationManager)]) {
+        _locationManager = [appDelegate performSelector:@selector(locationManager)];
+    }
+    return _locationManager;
+}*/
 
 -(void)currentLocationIdentifer{
     locationManager = [CLLocationManager new];
@@ -573,6 +601,35 @@
     
 }
 
+- (IBAction)buttonClose:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+#pragma mark - Search for venues
+-(void)startFetchingVenues{
+    [_manager fetechingVenuesAtCoordinate:locationManager.location.coordinate];
+}
+
+#pragma mark - FoursquareManagerDelegate
+-(void)didReceiveVenues:(NSArray *)venues{
+    
+    _venues = venues;
+    if ([venues count] == 0){
+        NSLog(@"No venue");
+        return;
+    }
+    Venue *nearest = [venues objectAtIndex:0];
+    
+    NSLog(@"Nearest location is %@",nearest);
+    
+    [self.locationLabel setText:[NSString stringWithFormat:@"%@ (%dm)",[nearest valueForKey:@"name"],[[nearest valueForKey:@"distance"] intValue]]];
+}
+
+-(void)fetchingVenuesFailedWithError:(NSError *)error{
+    NSLog(@"Failed to fetch venues from Foursquare: %@",error);
+}
+
 #pragma mark AVAudioRecorderDelegate
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
@@ -611,7 +668,9 @@
     
     NSLog(@"Got location");
     
-    self.locationLabel.text = [NSString stringWithFormat:@"Lng:%.2f Lat:%.2f",currentLocation.coordinate.longitude,currentLocation.coordinate.latitude];
+    //self.locationLabel.text = [NSString stringWithFormat:@"Lng:%.2f Lat:%.2f",currentLocation.coordinate.longitude,currentLocation.coordinate.latitude];
+    
+    [self startFetchingVenues];
     
     /*CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -629,15 +688,13 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    // TOFIX: suddently error happened
     NSLog(@"Fail to get location: %@",error);
     UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Failed to Get Location" message:@"Try again later" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [errorAlert show];
 }
 
-- (IBAction)buttonClose:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
+
 
 #pragma mark - Utility
 - (NSString *)documentsPathForFileName:(NSString *)name{

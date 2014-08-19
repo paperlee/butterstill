@@ -21,6 +21,8 @@
     NSError *error = nil;
     NSArray *venues = [VenueBuilder venuesFromJSON:objectNotation error:&error];
     
+    NSLog(@"ReceivedVenuesJSON");
+    
     if (error){
         [self.delegate fetchingVenuesFailedWithError:error];
     } else {

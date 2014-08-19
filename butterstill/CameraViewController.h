@@ -12,6 +12,7 @@
 #import "EZAudio.h"
 #import "DBManager.h"
 
+
 #define kTempAudioFilePath @"TempAudio.m4a"
 
 @interface CameraViewController : UIViewController<AVAudioPlayerDelegate,AVAudioRecorderDelegate,EZMicrophoneDelegate,CLLocationManagerDelegate>{
