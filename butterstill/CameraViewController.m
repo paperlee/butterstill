@@ -455,10 +455,15 @@
 
 - (IBAction)saveAction:(UIButton *)sender {
     NSLog(@"Saving...");
-    NSString *unique_name = [NSString stringWithFormat:@"%.0f",[NSDate timeIntervalSinceReferenceDate]*1000];
+    int uid = (int)[NSDate timeIntervalSinceReferenceDate];
+    
+    //NSString *unique_name = [NSString stringWithFormat:@"%lld",uid];
+    
+    
+    //NSLog(@"Unique id is %lld. Original is %@",uid,unique_name);
     
     // Save image to app document
-    NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"%@.jpg",unique_name]];
+    NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"%d.jpg",uid]];
     
     NSInteger shallImageOrientation;
     switch (self.takenImageOrientation) {
@@ -485,7 +490,7 @@
     
     // Save audio to app document
     NSURL *audioPathURL = [self audioFilePathURL];
-    NSString *storedAudioPath = [self documentsPathForFileName:[NSString stringWithFormat:@"%@.m4a",unique_name]];
+    NSString *storedAudioPath = [self documentsPathForFileName:[NSString stringWithFormat:@"%d.m4a",uid]];
     NSError *error = nil;
     BOOL storeAudioSuccess = [[NSFileManager defaultManager] copyItemAtPath:audioPathURL.path toPath:storedAudioPath error:&error];
     if (!storeAudioSuccess) {
@@ -503,14 +508,14 @@
     
     //TOFIX: Wrong name between uid and image/audio file name
     NSMutableDictionary *stillProfile = [[NSMutableDictionary alloc] init];
-    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"uid"];
+    [stillProfile setObject:[NSNumber numberWithInt:uid] forKey:@"uid"];
     [stillProfile setObject:@"paper" forKey:@"author"];
     [stillProfile setObject:@"nothing..." forKey:@"description"];
-    [stillProfile setObject:[NSString stringWithFormat:@"%@.jpg",unique_name] forKey:@"image"];
-    [stillProfile setObject:[NSString stringWithFormat:@"%@.m4a",unique_name] forKey:@"audio"];
-    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"create_date"];
-    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"update_date"];
-    [stillProfile setObject:[NSNumber numberWithInt:[unique_name intValue]] forKey:@"sync_date"];
+    [stillProfile setObject:[NSString stringWithFormat:@"%d.jpg",uid] forKey:@"image"];
+    [stillProfile setObject:[NSString stringWithFormat:@"%d.m4a",uid] forKey:@"audio"];
+    [stillProfile setObject:[NSNumber numberWithInt:uid] forKey:@"create_date"];
+    [stillProfile setObject:[NSNumber numberWithInt:uid] forKey:@"update_date"];
+    [stillProfile setObject:[NSNumber numberWithInt:uid] forKey:@"sync_date"];
     [stillProfile setObject:[NSNumber numberWithInt:0] forKey:@"liked"];
     [stillProfile setObject:[NSNumber numberWithInt:0] forKey:@"disliked"];
     [stillProfile setObject:@"no" forKey:@"remote"];
@@ -606,7 +611,7 @@
     
     NSLog(@"Got location");
     
-    self.locationLabel.text = [NSString stringWithFormat:@"Lng:%.2f Lat:%.2f",currentLocation.coordinate.latitude,currentLocation.coordinate.latitude];
+    self.locationLabel.text = [NSString stringWithFormat:@"Lng:%.2f Lat:%.2f",currentLocation.coordinate.longitude,currentLocation.coordinate.latitude];
     
     /*CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
