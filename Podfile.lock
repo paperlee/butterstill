@@ -1,10 +1,13 @@
 PODS:
   - EZAudio (0.0.5)
+  - SWTableViewCell (0.3.0)
 
 DEPENDENCIES:
   - EZAudio (~> 0.0.4)
+  - SWTableViewCell (~> 0.3.0)
 
 SPEC CHECKSUMS:
   EZAudio: 9510d4666c9d01a2151cdb01e71fb51f15ac9442
+  SWTableViewCell: 1725f7607ce4c154264c18aeb78e4636b11b0b29
 
 COCOAPODS: 0.33.1

@@ -9,6 +9,7 @@
 #import "StillsTableViewController.h"
 #import "DBManager.h"
 #import "StillProfile.h"
+#import "StillTableViewCell.h"
 
 @interface StillsTableViewController (){
     AVAudioPlayer *audioPlayer;
@@ -104,10 +105,10 @@
 {
     static NSString *CellIdentifier = @"StillTableViewCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    StillTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StillTableViewCell"];
+        cell = [[StillTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StillTableViewCell"];
     }
     
     StillProfile *stillProfile = [self.stillsData objectAtIndex:indexPath.row];
@@ -122,6 +123,13 @@
     // Add action to play button
     UIButton *playButton = (UIButton *)[cell viewWithTag:101];
     [playButton addTarget:self action:@selector(playButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Add utility buttons
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0] title:@"Share"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
+    cell.rightUtilityButtons = rightUtilityButtons;
+    cell.delegate = self;
     
     NSLog(@"Done assign cell");
     
@@ -216,7 +224,8 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    // Use SWTableViewCell instead
+    return NO;
 }
 
 // Override to support editing the table view.
@@ -506,7 +515,75 @@
     
 }
 
+#pragma mark - SWTableViewCellDelegate
+-(void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index{
+    switch (index) {
+        case 0:
+        {
+            // Share button actived
+            NSLog(@"Go share");
+            UIActionSheet *shareActions = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Not now" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook",@"Share on Twitter", nil];
+            [shareActions showInView:self.view];
+            
+            [cell hideUtilityButtonsAnimated:YES];
+            break;
+        }
+        case 1:
+        {
+            // Delete button actived
+            NSLog(@"Go delete");
+            [self deleteRowAt:index indexPath:[self.tableView indexPathForCell:cell]];
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark - Utility
+- (void)deleteRowAt:(NSInteger)index indexPath:(NSIndexPath *)indexPath{
+    if (audioPlayer.isPlaying){
+        [audioPlayer stop];
+    }
+    
+    // Delete db and local data first
+    
+    NSMutableDictionary *deletingData = [self.stillsData objectAtIndex:index];
+    NSInteger row_id = [[deletingData valueForKey:@"row_id"] intValue];
+    
+    NSLog(@"Prepare to delete %ld and db id is %ld",(long)index,(long)row_id);
+    BOOL deleteSuccess = [[DBManager getSharedInstance] deleteData:row_id];
+    if (deleteSuccess){
+        // Delete audio and image file
+        
+        NSString *audioFilePath = [self documentsPathForFileName:[deletingData valueForKey:@"audio"]];
+        NSString *imageFilePath = [self documentsPathForFileName:[deletingData valueForKey:@"image"]];
+        NSError *audioError = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:audioFilePath error:&audioError];
+        if (audioError){
+            NSLog(@"Error to delete audio file: %@",audioError);
+        }
+        
+        NSError *imageError = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:imageFilePath error:&imageError];
+        if (imageError){
+            NSLog(@"Error to delete image file: %@",imageError);
+        }
+        
+        //self.stillsData = [[DBManager getSharedInstance] getDatas];
+        
+        [self.stillsData removeObjectAtIndex:index];
+        
+        NSLog(@"Deleted from file and db");
+        
+        //NSIndexPath *indexPath = [[NSIndexPath alloc] initWithIndex:index];
+        
+        // Delete the row from the data source
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
 - (NSString *)documentsPathForFileName:(NSString *)name{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];

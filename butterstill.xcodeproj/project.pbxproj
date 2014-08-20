@@ -39,6 +39,7 @@
 		2049FAB4199D9FED006FCD97 /* icon_butterfly0001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2049FA96199D9FED006FCD97 /* icon_butterfly0001@2x.png */; };
 		2049FAB5199D9FED006FCD97 /* icon_butterfly0002@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2049FA97199D9FED006FCD97 /* icon_butterfly0002@2x.png */; };
 		2049FAB6199D9FED006FCD97 /* icon_butterfly0003@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2049FA98199D9FED006FCD97 /* icon_butterfly0003@2x.png */; };
+		20A1CFD019A43FCE003F6943 /* StillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A1CFCF19A43FCE003F6943 /* StillTableViewCell.m */; };
 		20A7D61719986245007BE12E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D61619986245007BE12E /* Foundation.framework */; };
 		20A7D61919986245007BE12E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D61819986245007BE12E /* CoreGraphics.framework */; };
 		20A7D61B19986245007BE12E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7D61A19986245007BE12E /* UIKit.framework */; };
@@ -110,6 +111,8 @@
 		2049FA96199D9FED006FCD97 /* icon_butterfly0001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_butterfly0001@2x.png"; sourceTree = "<group>"; };
 		2049FA97199D9FED006FCD97 /* icon_butterfly0002@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_butterfly0002@2x.png"; sourceTree = "<group>"; };
 		2049FA98199D9FED006FCD97 /* icon_butterfly0003@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_butterfly0003@2x.png"; sourceTree = "<group>"; };
+		20A1CFCE19A43FCE003F6943 /* StillTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StillTableViewCell.h; sourceTree = "<group>"; };
+		20A1CFCF19A43FCE003F6943 /* StillTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StillTableViewCell.m; sourceTree = "<group>"; };
 		20A7D61319986245007BE12E /* butterstill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = butterstill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A7D61619986245007BE12E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		20A7D61819986245007BE12E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -274,6 +277,8 @@
 				20F866BD19A3323600A5CECE /* FoursquareCommunicator.m */,
 				20F866BF19A3368300A5CECE /* VenueBuilder.h */,
 				20F866C019A3368300A5CECE /* VenueBuilder.m */,
+				20A1CFCE19A43FCE003F6943 /* StillTableViewCell.h */,
+				20A1CFCF19A43FCE003F6943 /* StillTableViewCell.m */,
 				20F866C219A34B1100A5CECE /* FoursquareManagerDelegate.h */,
 				20F866C319A34BA100A5CECE /* FoursquareManager.h */,
 				20F866C419A34BA100A5CECE /* FoursquareManager.m */,
@@ -482,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20A1CFD019A43FCE003F6943 /* StillTableViewCell.m in Sources */,
 				20AC2BB01999D21600D496AE /* StillsTableViewController.m in Sources */,
 				20F866BE19A3323600A5CECE /* FoursquareCommunicator.m in Sources */,
 				20AC2BAD1999B6A700D496AE /* StillProfile.m in Sources */,

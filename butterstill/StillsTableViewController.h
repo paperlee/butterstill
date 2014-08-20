@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SWTableViewCell.h"
 //#import "EZAudio.h"
 
-@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate>
+@interface StillsTableViewController : UITableViewController<AVAudioPlayerDelegate,SWTableViewCellDelegate>
 
 @property (nonatomic,strong) NSMutableArray *stillsData;
 //@property (nonatomic,weak) NSIndexPath *currentPlayIndexPath;

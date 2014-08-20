@@ -25,7 +25,7 @@
     NSArray *results = [[parsedObject valueForKey:@"response"] valueForKey:@"groups"];
     NSArray *recommends = [[results objectAtIndex:0] valueForKey:@"items"];
     
-    NSLog(@"returned items: %d",recommends.count);
+    NSLog(@"returned items: %lu",(unsigned long)recommends.count);
     
     for (NSDictionary *venueDic in recommends){
         Venue *venue = [[Venue alloc] init];
