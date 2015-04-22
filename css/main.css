@@ -1,0 +1,59 @@
+body{
+  background:url(../images/sample.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Verdana", sans-serif;
+}
+
+img.appicon{
+  border-radius: 26px;
+  width:120px;
+  height:120px;
+}
+
+div.bigbox{
+  margin-top:330px;
+}
+
+h1{
+  /* Butterfly: */
+  font-weight: bold;
+  font-size: 40px;
+  color: rgba(255,255,255,0.86);
+  margin-top:0px;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+p{
+  margin-bottom: 20px;
+}
+
+.t1{
+  /* Type something: */
+  font-size: 20px;
+  color: rgba(255,255,255,0.64);
+}
+
+.t2{
+  /* Great Moment: */
+  font-weight: bold;
+  font-size: 28px;
+  color: rgba(255,255,255,0.8);
+  line-height: 44px;
+
+}
+
+span.scene{
+  padding-left:60px;
+  padding-top:20px;
+  background:url(../images/icon_scene.png) no-repeat bottom left;
+}
+
+span.ambience{
+  padding-left:60px;
+  padding-top:20px;
+  background:url(../images/icon_wave.png) no-repeat bottom left;
+}
