@@ -8,6 +8,7 @@ body{
   position:relative;
   font-size:12px;
   background-color:black;
+  background-attachment: fixed;
 }
 
 img.appicon{
