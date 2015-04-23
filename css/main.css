@@ -5,6 +5,7 @@ body{
   -o-background-size: cover;
   background-size: cover;
   font-family: "Verdana", sans-serif;
+  position:relative;
 }
 
 img.appicon{
@@ -14,17 +15,29 @@ img.appicon{
 }
 
 div.bigbox{
-  margin-top:330px;
+  position: fixed;
+  width:100%;
+  bottom:0;
+  padding-top:40px;
+  margin-bottom:60px;
+  background:rgba(0,0,0,0.4);
+}
+
+div.containerbox{
+  position: relative;
+  width: 600px;
+  margin:0 auto;
+
 }
 
 h1{
   /* Butterfly: */
   font-weight: bold;
   font-size: 40px;
-  color: rgba(255,255,255,0.86);
+  color: rgba(255,255,255,0.9);
   margin-top:0px;
   letter-spacing: -2px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 p{
@@ -46,14 +59,96 @@ p{
 
 }
 
+div.row1{
+
+}
+
+div.row2{
+
+}
+
+span#and{
+  margin-left:0.7em;
+  margin-right:0.5em;
+  float:left;
+  padding-top: 19px;
+}
+
 span.scene{
-  padding-left:60px;
-  padding-top:20px;
-  background:url(../images/icon_scene.png) no-repeat bottom left;
+  padding-left:68px;
+  padding-top:8px;
+  background:url(../images/icon_scene.png) no-repeat center left;
+  height: 60px;
+  display: block;
+  float: left;
 }
 
 span.ambience{
-  padding-left:60px;
-  padding-top:20px;
-  background:url(../images/icon_wave.png) no-repeat bottom left;
+  padding-left:68px;
+  padding-top:8px;
+  background:url(../images/icon_wave.png) no-repeat center left;
+  height: 60px;
+  display: block;
+  float: left;
+}
+
+div.appiconbox{
+  float:left;
+}
+
+div.descriptionbox{
+  float:left;
+  margin-left:30px;
+}
+
+div.applybetabox>a{
+  background:url(../images/icon_testflight.png) center top no-repeat;
+  background-size: 64px 64px;
+  display: block;
+  height:80px;
+  padding-top: 80px;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 1.3em;
+}
+
+div.applybetabox{
+  width:100%;
+  height:80px;
+}
+
+div.contactbox{
+  width:200px;
+  height: 84px;
+  margin:0 auto;
+  padding-top:60px;
+}
+
+a.sharetwitter{
+  display:block;
+  background:url(../images/icon_twitter.png) no-repeat center center;
+  width:84px;
+  height:84px;
+  background-size: 84px 84px;
+  float:left;
+  -webkit-transition:transform 0.5s;
+  transition: transform 0.5s;
+}
+
+a.sharemail{
+  display:block;
+  background:url(../images/icon_mail.png) no-repeat center center;
+  width:84px;
+  height:84px;
+  background-size: 84px 84px;
+  float:right;
+  opacity: 1;
+  -webkit-transition:transform 0.5s;
+  transition: transform 0.5s;
+}
+
+a.sharemail:hover, a.sharetwitter:hover{
+  -ms-transform: scale(0.92,0.92);
+  -webkit-transform: scale(0.92,0.92);
+  transform: scale(0.92,0.92);
 }
