@@ -6,6 +6,8 @@ body{
   background-size: cover;
   font-family: "Verdana", sans-serif;
   position:relative;
+  font-size:12px;
+  background-color:black;
 }
 
 img.appicon{
@@ -31,9 +33,8 @@ div.containerbox{
 }
 
 h1{
-  /* Butterfly: */
   font-weight: bold;
-  font-size: 40px;
+  font-size: 3.4em;
   color: rgba(255,255,255,0.9);
   margin-top:0px;
   letter-spacing: -2px;
@@ -46,14 +47,14 @@ p{
 
 .t1{
   /* Type something: */
-  font-size: 20px;
+  font-size: 1.3em;
   color: rgba(255,255,255,0.64);
 }
 
 .t2{
   /* Great Moment: */
   font-weight: bold;
-  font-size: 28px;
+  font-size: 1.7em;
   color: rgba(255,255,255,0.8);
   line-height: 44px;
 
@@ -105,23 +106,20 @@ div.applybetabox>a{
   background:url(../images/icon_testflight.png) center top no-repeat;
   background-size: 64px 64px;
   display: block;
-  height:80px;
   padding-top: 80px;
   text-align: center;
   margin-top: 40px;
-  font-size: 1.3em;
+  font-size: 1.8em;
 }
 
 div.applybetabox{
   width:100%;
-  height:80px;
 }
 
 div.contactbox{
   width:200px;
-  height: 84px;
-  margin:0 auto;
-  padding-top:60px;
+  height: 100%;
+  margin:32px auto 10px;
 }
 
 a.sharetwitter{
@@ -151,4 +149,70 @@ a.sharemail:hover, a.sharetwitter:hover{
   -ms-transform: scale(0.92,0.92);
   -webkit-transform: scale(0.92,0.92);
   transform: scale(0.92,0.92);
+}
+
+@media screen and (max-width: 42em) {
+  body{
+    font-size:10px;
+  }
+
+  div.bigbox{
+    position:relative;
+    top:0;
+    margin-top:42em;
+  }
+
+  div.containerbox{
+    width:100%;
+  }
+
+  div.appiconbox{
+    float: none;
+  }
+
+  div.appiconbox>img{
+    margin:0 auto;
+    display:block;
+  }
+
+  div.descriptionbox{
+    margin-left:0;
+    margin-right:0;
+    margin-top:20px;
+    width:100%;
+    box-sizing:border-box;
+    padding-left:24px;
+    padding-right:24px;
+  }
+
+  div.descriptionbox>h1{
+    text-align:center;
+
+  }
+
+  span.scene, span.ambience{
+    float:none;
+    text-align: left;
+  }
+
+  span.ambience{
+    float:none;
+  }
+
+  span#and{
+    float:none;
+    margin-left:80px;
+  }
+
+  div.contactbox{
+    padding-bottom:40px;
+  }
+
+  div#row2{
+    margin-top:20px;
+  }
+
+  .t1{
+    font-size: 1.6em;
+  }
 }
